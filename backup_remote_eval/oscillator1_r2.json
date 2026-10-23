@@ -1,0 +1,10 @@
+{
+ "log": "logs/llama8b_oscillator1_r2",
+ "ds": "oscillator1",
+ "n_samples": 2542,
+ "best_train_score": -2.6361861605217803e-10,
+ "refit_train_mse": 2.6361861605217803e-10,
+ "ID": 6.042647541480587e-08,
+ "OOD": 0.0001822842139336267,
+ "function": "def equation(x: np.ndarray, v: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for acceleration in a damped nonlinear oscillator\n\n    Args:\n        x: A numpy array representing observations of current position.\n        v: A numpy array representing observations of velocity.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing acceleration as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for acceleration in a damped nonlinear oscillator with driving force\n    \n    Args:\n        x: A numpy array representing observations of current position.\n        v: A numpy array representing observations of velocity.\n        params: Array of numeric constants or parameters to be optimized, including:\n            - params[0]: Mass of the oscillator\n            - params[1]: Velocity-dependent damping coefficient\n            - params[2]: Position-dependent damping coefficient\n            - params[3]: Amplitude of the driving force\n            - params[4]: Frequency of the driving force\n    \n    Returns:\n        A numpy array representing acceleration as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # Nonlinear restoring force term\n    dv_nonlin = params[0] * v**3\n    \n    # Velocity-dependent damping term\n    dv_damp = -params[1] * v\n    \n    # Position-dependent damping term\n    dv_pos_damp = -params[2] * x * v\n    \n    # Driving force term\n    dv_drive = params[3] * np.sin(params[4] * x)\n    \n    # Acceleration as the sum of the nonlinear restoring force, velocity-dependent damping, position-dependent damping, and driving force terms\n    dv = dv_nonlin + dv_damp + dv_pos_damp + dv_drive\n    \n    return dv\n\n"
+}

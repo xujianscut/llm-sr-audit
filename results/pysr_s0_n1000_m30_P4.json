@@ -1,0 +1,43 @@
+{
+ "pid": 4,
+ "name": "Gray and Scott isothermal autocatalytic reaction model, 1985 (dimensionless)",
+ "method": "pysr",
+ "seed": 0,
+ "niter": 1000,
+ "maxsize": 30,
+ "wall_s": 89.95200490951538,
+ "exprs": [
+  "(-0.177*x0 - 0.1584*x1 + exp(45.09171 - exp(x1*19.986355)) + 0.2039)*exp(exp(x1))",
+  "x1*(x0*x1 - 0.02) - 2.734e-5*(x0 - 0.9357)*sin(sin(x0/(-0.026639398)) - cos(x0*sin(x0/0.022537848)))"
+ ],
+ "truth": [
+  "c0 * (1.0 - x0) - x0 * x1**2",
+  "-c1 * x1 + x0 * x1**2"
+ ],
+ "params": {
+  "c0": 0.5,
+  "c1": 0.02
+ },
+ "ID": {
+  "residual": [
+   1.2555848489111386e-08,
+   4.010517407148966e-09
+  ],
+  "integral": [
+   1.8451308193117026e-12,
+   8.523362603701088e-13
+  ]
+ },
+ "OOD": {
+  "residual": [
+   0.10154813472781427,
+   1.9277253630213704e-10
+  ],
+  "integral": [
+   0.00022776978091891496,
+   2.2714708075202614e-05
+  ]
+ },
+ "success_ID": true,
+ "success_OOD": true
+}

@@ -1,0 +1,11 @@
+{
+ "log": "llmsr_logs/rikyu/llama8b_CRK22_r2",
+ "ds": "CRK22",
+ "source": "anytime_rikyu.json",
+ "n_samples": 1001,
+ "ID": 2.311696380301213e-06,
+ "OOD": 21.350259384999756,
+ "refit_matched": true,
+ "restarts": 0,
+ "remote_eval_OOD": 21.34936786684501
+}

@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK3_r1",
+ "ds": "CRK3",
+ "n_samples": 807,
+ "best_train_score": -1.9223154353255675e-07,
+ "refit_train_mse": 1.9223154353255675e-07,
+ "ID": 0.00011112861208590773,
+ "OOD": 0.3203106173462138,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized.\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # First-order reaction term: A decreases exponentially with time\n    dA_dt = -params[0] * A  # First-order reaction rate constant\n    \n    # Second-order reaction term: A decreases quadratically with time\n    dA_dt += -params[1] * A**2  # Second-order reaction rate constant\n    \n    # Diffusion term: A increases linearly with time due to diffusion\n    dA_dt += params[2] * t  # Diffusion coefficient\n    \n    # Activation energy term: A increases exponentially with time due to activation energy\n    dA_dt += params[3] * np.exp(-params[4] * t)  # Activation energy coefficient\n    \n    # Non-linear reaction term: A increases or decreases non-linearly with time\n    dA_dt += params[5] * (t**2 + A**3)  # Non-linear reaction coefficient\n    \n    return dA_dt\n\n"
+}

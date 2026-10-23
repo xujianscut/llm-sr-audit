@@ -1,0 +1,11 @@
+{
+ "log": "llmsr_logs/tlt/llama8b_bactgrow_r3",
+ "ds": "bactgrow",
+ "source": "anytime_tlt.json",
+ "n_samples": 3001,
+ "ID": 0.016450535048142582,
+ "OOD": 0.07524559477738749,
+ "refit_matched": true,
+ "restarts": 2,
+ "remote_eval_OOD": 0.1552081689305397
+}

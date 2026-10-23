@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK22_r1",
+ "ds": "CRK22",
+ "n_samples": 810,
+ "best_train_score": -1.5979369379407256e-09,
+ "refit_train_mse": 1.5979369379407256e-09,
+ "ID": 8.235043740098359e-07,
+ "OOD": 0.017647473864243365,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for rate of change of concentration in chemistry reaction kinetics.\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # Consider a second-order reaction rate equation: dA/dt = -k * A^2\n    # To make it more flexible, we'll include a term for the initial concentration (A0) and a constant term (C)\n    # We'll also include a term for the rate constant (k) and its temperature dependence (Ea, R)\n    # For simplicity, we'll assume a first-order temperature dependence\n    dA_dt = -params[0] * A**2 + params[1] * t + params[2] * np.exp(-params[3] * t) + params[4] * A + params[5]\n    \n    return dA_dt\n\n"
+}

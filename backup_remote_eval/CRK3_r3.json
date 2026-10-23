@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK3_r3",
+ "ds": "CRK3",
+ "n_samples": 729,
+ "best_train_score": -1.9013024193675838e-07,
+ "refit_train_mse": 1.9013024193675838e-07,
+ "ID": 9.863227876312287e-05,
+ "OOD": 0.9549481732464208,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    This function considers a more complex relationship between time and concentration, \n    including a saturation term and an Arrhenius term for temperature dependence, \n    as well as a periodic term to account for any oscillatory behavior in the reaction.\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized.\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # Assume a temperature profile (e.g., Arrhenius term) as a function of time\n    T = params[0] * np.exp(-params[1] * t) + params[2]  # Temperature as a function of time\n    \n    # Rate of change of concentration (dA/dt) considering saturation and temperature dependence\n    dA_dt = params[3] * A / (1 + params[4] * A**2) + params[5] * T * np.exp(-params[6] * A**2) + params[7] * np.sin(params[8] * t) + params[9] * A**3\n    \n    return dA_dt\n\n"
+}

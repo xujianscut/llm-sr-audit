@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK15_r3",
+ "ds": "CRK15",
+ "n_samples": 752,
+ "best_train_score": -1.1884198478163156e-08,
+ "refit_train_mse": 1.1884198478163156e-08,
+ "ID": 1.1411274225327574e-06,
+ "OOD": 0.0032244967971186114,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Returns:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # First-order reaction\n    dA_dt_1st_order = -params[0] * A\n    \n    # Second-order reaction\n    dA_dt_2nd_order = -params[1] * A**2\n    \n    # Zero-order reaction\n    dA_dt_zero_order = -params[2]\n    \n    # Sinusoidal term to represent oscillations in concentration\n    dA_dt_sin = params[3] * np.sin(2 * np.pi * params[4] * t)\n    \n    # Combination of reactions with a sinusoidal term\n    dA_dt = dA_dt_1st_order + dA_dt_2nd_order + dA_dt_zero_order + dA_dt_sin\n    \n    # Michaelis-Menten kinetics\n    Km = params[5]\n    Vmax = params[6]\n    dA_dt_mm = Vmax * A / (Km + A)\n    \n    # Hill function to represent cooperative binding\n    n = params[7]\n    Kd = params[8]\n    dA_dt_hill = (Kd**n) / (A**n + Kd**n)\n    \n    # Return the combined rate of change of concentration\n    return dA_dt + dA_dt_mm + dA_dt_hill\n\n"
+}

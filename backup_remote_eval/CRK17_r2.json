@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK17_r2",
+ "ds": "CRK17",
+ "n_samples": 754,
+ "best_train_score": -6.155124432422289e-11,
+ "refit_train_mse": 6.155124432422289e-11,
+ "ID": 3.7350842205065465e-09,
+ "OOD": 1.269480543130093e-06,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    The function represents the rate of change of concentration (dA/dt) as a combination of \n    different mathematical functions, such as exponential decay, sinusoidal oscillations, \n    power-law growth, and linear growth. The parameters of these functions are to be optimized \n    based on the given data on time and concentration at time t.\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics \n        as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # Exponential decay term\n    dA_dt_exp = params[0] * np.exp(-params[1] * t) * A\n    \n    # Sinusoidal oscillation term\n    dA_dt_sin = params[2] * np.sin(params[3] * t + params[4] * A)\n    \n    # Power-law growth term\n    dA_dt_pow = params[5] * A ** params[6]\n    \n    # Linear growth term\n    dA_dt_lin = params[7] * t\n    \n    # Resulting rate of change of concentration\n    dA_dt = dA_dt_exp + dA_dt_sin + dA_dt_pow + dA_dt_lin\n    \n    return dA_dt\n\n"
+}

@@ -1,0 +1,43 @@
+{
+ "pid": 1,
+ "name": "SIR infection model considering only healthy individuals and patients",
+ "method": "pysr",
+ "seed": 1,
+ "niter": 1000,
+ "maxsize": 30,
+ "wall_s": 108.04032015800476,
+ "exprs": [
+  "x0*x1*(-1.94e-5*cos(x1*1.698851) - 0.4)",
+  "x1*(0.4*x0 - 0.0001047*cos(x1) - 0.3139)"
+ ],
+ "truth": [
+  "-c0 * x0 * x1",
+  "c0 * x0 * x1 - c1 * x1"
+ ],
+ "params": {
+  "c0": 0.4,
+  "c1": 0.314
+ },
+ "ID": {
+  "residual": [
+   1.6399121142857876e-09,
+   2.495852077246137e-09
+  ],
+  "integral": [
+   5.343962442707648e-11,
+   3.2348120160321765e-11
+  ]
+ },
+ "OOD": {
+  "residual": [
+   4.020580564782177e-10,
+   1.9248260642550053e-07
+  ],
+  "integral": [
+   1.938335036197406e-09,
+   1.0507358510702044e-08
+  ]
+ },
+ "success_ID": true,
+ "success_OOD": true
+}

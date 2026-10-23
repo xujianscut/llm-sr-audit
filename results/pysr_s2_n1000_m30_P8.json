@@ -1,0 +1,58 @@
+{
+ "pid": 8,
+ "name": "Glider Flight Dynamics (Physical Units)",
+ "method": "pysr",
+ "seed": 2,
+ "niter": 1000,
+ "maxsize": 30,
+ "wall_s": 207.50843977928162,
+ "exprs": [
+  "-0.03062*x0**2 + sin(x1)/(-0.1019 - 0.01841*exp(-6.79689240641665*x0))",
+  "0.6126*x0 - 9.819/(x0/cos(x1) - 0.004045 + 0.002979/(x0 + 0.005413/sin(x1)))",
+  "x0*(1.0 - 1.893e-5/(x1 + 0.0573))*cos(x1)",
+  "0.9999*x0*sin(x1)"
+ ],
+ "truth": [
+  "-c0 * np.sin(x1) - (c1 * c2 * x0**2) / (2 * c3)",
+  "-(c0 * np.cos(x1)) / x0 + (c1 * c4 * x0) / (2 * c3)",
+  "x0 * np.cos(x1)",
+  "x0 * np.sin(x1)"
+ ],
+ "params": {
+  "c0": 9.81,
+  "c1": 1.225,
+  "c2": 0.05,
+  "c3": 1.0,
+  "c4": 1.0
+ },
+ "ID": {
+  "residual": [
+   7.250960855949655e-08,
+   2.5071285889891467e-05,
+   1.6509384446039748e-07,
+   6.648771600009518e-09
+  ],
+  "integral": [
+   Infinity,
+   Infinity,
+   Infinity,
+   Infinity
+  ]
+ },
+ "OOD": {
+  "residual": [
+   3.814784049859086e-09,
+   7.422673675112157e-06,
+   2.2372767784776647e-09,
+   6.648771600020651e-09
+  ],
+  "integral": [
+   Infinity,
+   Infinity,
+   Infinity,
+   Infinity
+  ]
+ },
+ "success_ID": false,
+ "success_OOD": false
+}

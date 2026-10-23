@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK22_r2",
+ "ds": "CRK22",
+ "n_samples": 798,
+ "best_train_score": -2.6577072429193917e-09,
+ "refit_train_mse": 2.6577072429193917e-09,
+ "ID": 2.311661498784452e-06,
+ "OOD": 21.34936786684501,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"Improved version of `equation_v1`.\n    \n    Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \n    # Term 1: exponential decay\n    term1 = params[0] * np.exp(-params[1] * t)\n    \n    # Term 2: linear increase\n    term2 = params[2] * t\n    \n    # Term 3: non-linear relationship (e.g., power-law)\n    term3 = params[3] * A**params[4]\n    \n    # Term 4: sinusoidal oscillation\n    term4 = params[5] * np.sin(params[6] * t)\n    \n    # Term 5: exponential growth\n    term5 = params[7] * np.exp(params[8] * t)\n    \n    # Term 6: rate of change of concentration\n    term6 = params[9] * (A**2 - A)\n    \n    # Combine all terms\n    return term1 * A + term2 + term3 + term4 + term5 + term6\n\n"
+}

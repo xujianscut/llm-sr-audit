@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK4_r2",
+ "ds": "CRK4",
+ "n_samples": 795,
+ "best_train_score": -6.317449128491354e-09,
+ "refit_train_mse": 6.317449128491354e-09,
+ "ID": 1.0052371782594746e-05,
+ "OOD": 0.1711778576623432,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # First-order reaction term\n    first_order_term = params[0] * A\n    \n    # Second-order reaction term\n    second_order_term = params[1] * A * A\n    \n    # Autocatalysis term\n    autocatalysis_term = params[2] * A * np.exp(-params[3] * t)\n    \n    # Inhibition term\n    inhibition_term = params[4] / (1 + params[5] * A)\n    \n    # Temperature-dependent term\n    temperature_term = params[6] * np.exp(params[7] * (t - params[8]))\n    \n    dA_dt = first_order_term + second_order_term + autocatalysis_term + inhibition_term + temperature_term\n    return dA_dt\n\n"
+}

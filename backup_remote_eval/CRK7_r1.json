@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK7_r1",
+ "ds": "CRK7",
+ "n_samples": 795,
+ "best_train_score": -4.011081319924791e-08,
+ "refit_train_mse": 4.011081319924791e-08,
+ "ID": 0.00011141657759784533,
+ "OOD": 0.7066399253255313,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # Multi-component reaction kinetics\n    dA_dt = (params[0] * A**2 + params[1] * A * np.exp(-params[2] * t) + \n             params[3] * np.exp(params[4] * t) * A**3 + \n             params[5] * np.exp(-params[6] * t) * A**2)\n    \n    return dA_dt\n\n"
+}

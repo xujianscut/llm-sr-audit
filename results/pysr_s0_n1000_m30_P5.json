@@ -1,0 +1,42 @@
+{
+ "pid": 5,
+ "name": "Interacting bar magnets",
+ "method": "pysr",
+ "seed": 0,
+ "niter": 1000,
+ "maxsize": 30,
+ "wall_s": 114.75383806228638,
+ "exprs": [
+  "sin(x1*(-0.35497165) + sin(sin(x0*(-0.69449204))))",
+  "0.2986*(-x0 - 2.142*sin(sin(sin(x1))))*cos(x0*0.16478714)"
+ ],
+ "truth": [
+  "c0 * np.sin(x0 - x1) - np.sin(x0)",
+  "-c0 * np.sin(x0 - x1) - np.sin(x1)"
+ ],
+ "params": {
+  "c0": 0.33
+ },
+ "ID": {
+  "residual": [
+   1.4891747167282135e-09,
+   1.4911592542919135e-08
+  ],
+  "integral": [
+   2.4823546129238052e-11,
+   4.268596340467745e-11
+  ]
+ },
+ "OOD": {
+  "residual": [
+   1.1248404426671093e-07,
+   2.4077219686528493e-06
+  ],
+  "integral": [
+   2.9961658494261665e-09,
+   6.238563166761424e-08
+  ]
+ },
+ "success_ID": true,
+ "success_OOD": true
+}

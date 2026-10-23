@@ -1,0 +1,10 @@
+{
+ "log": "logs/llama8b_oscillator1_r1",
+ "ds": "oscillator1",
+ "n_samples": 2514,
+ "best_train_score": -9.602624319561648e-09,
+ "refit_train_mse": 9.602624319561648e-09,
+ "ID": 2.200746346838625e-06,
+ "OOD": 0.0322199673062759,
+ "function": "def equation(x: np.ndarray, v: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for acceleration in a damped nonlinear oscillator\n\n    Args:\n        x: A numpy array representing observations of current position.\n        v: A numpy array representing observations of velocity.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing acceleration as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"Mathematical function for acceleration in a damped nonlinear oscillator with driving force\n    \n    Args:\n        x: A numpy array representing observations of current position.\n        v: A numpy array representing observations of velocity.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing acceleration as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # Extract parameters\n    omega0 = params[0]  # Natural frequency\n    gamma = params[1]  # Damping coefficient\n    F0 = params[2]  # Amplitude of driving force\n    omega = params[3]  # Frequency of driving force\n    beta = params[4]  # Coefficient for nonlinearity\n    alpha = params[5]  # Coefficient for nonlinearity in velocity term\n    delta = params[6]  # Coefficient for nonlinearity in position term\n    phi = params[7]  # Phase shift of driving force\n    mu = params[8]  # External force coefficient\n    eta = params[9]  # Coefficient for nonlinear damping\n    \n    # Calculate acceleration\n    dv = -omega0**2 * x - gamma * v - mu * np.cos(omega * np.ones_like(x) + phi) + \\\n         beta * x**3 + alpha * v**3 + delta * x**4 + eta * v * x\n    \n    return dv\n\n"
+}

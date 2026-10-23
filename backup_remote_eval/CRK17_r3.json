@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK17_r3",
+ "ds": "CRK17",
+ "n_samples": 700,
+ "best_train_score": -1.3956683844586768e-07,
+ "refit_train_mse": 1.3956683844586768e-07,
+ "ID": 6.640538149038277e-06,
+ "OOD": 0.0031626928249239928,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"Improved version of `equation_v1` that includes additional terms to represent more complex chemistry reaction kinetics.\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # First-order reaction term\n    dA_dt_first_order = params[0] * np.exp(-params[1] * t) * A\n    \n    # Second-order reaction term\n    dA_dt_second_order = params[2] * A**2\n    \n    # Michaelis-Menten enzyme kinetics term\n    dA_dt_michaelis_menten = params[3] * A / (params[4] + A)\n    \n    # Autocatalytic reaction term\n    dA_dt_autocatalytic = params[5] * A**2 * np.exp(-params[6] * t)\n    \n    # Diffusion term\n    dA_dt_diffusion = params[7] * np.exp(-params[8] * t**2) * A\n    \n    # Total rate of change\n    dA_dt = dA_dt_first_order + dA_dt_second_order + dA_dt_michaelis_menten + dA_dt_autocatalytic + dA_dt_diffusion\n    \n    return dA_dt\n\n"
+}

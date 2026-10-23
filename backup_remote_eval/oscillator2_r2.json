@@ -1,0 +1,10 @@
+{
+ "log": "logs/llama8b_oscillator2_r2",
+ "ds": "oscillator2",
+ "n_samples": 2590,
+ "best_train_score": -3.92716864215612e-09,
+ "refit_train_mse": 3.92716864215612e-09,
+ "ID": 2.3959047187619106e-08,
+ "OOD": 0.5347003121516265,
+ "function": "def equation(t: np.ndarray, x: np.ndarray, v: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for acceleration in a damped nonlinear oscillator\n\n    Args:\n        t: A numpy array representing time.\n        x: A numpy array representing observations of current position.\n        v: A numpy array representing observations of velocity.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing acceleration as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"Improved version of `equation_v1` representing acceleration in a damped nonlinear oscillator\n    \n    Args:\n        t: A numpy array representing time.\n        x: A numpy array representing observations of current position.\n        v: A numpy array representing observations of velocity.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing acceleration as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # Damping term: -params[0] * v\n    # Spring force term: -params[1] * x\n    # Driving force term: params[2] * np.exp(-params[3] * t) * np.cos(2 * np.pi * params[4] * t)\n    # Nonlinear damping term: params[5] * v**2\n    # Nonlinear spring term: params[6] * x**3\n    # Additional driving force term: params[7] * np.sin(2 * np.pi * params[8] * t)\n    # Additional damping term: params[9] * x * v\n    \n    dv_dt = -params[0] * v - params[1] * x + params[2] * np.exp(-params[3] * t) * np.cos(2 * np.pi * params[4] * t) + params[5] * v**2 + params[6] * x**3 + params[7] * np.sin(2 * np.pi * params[8] * t) + params[9] * x * v\n    \n    # Calculate acceleration from velocity\n    a = np.gradient(dv_dt, t, edge_order=2)\n    \n    return a\n\n"
+}

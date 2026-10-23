@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK19_r1",
+ "ds": "CRK19",
+ "n_samples": 766,
+ "best_train_score": -8.98218144943582e-09,
+ "refit_train_mse": 8.98218144943582e-09,
+ "ID": 8.548900748320893e-05,
+ "OOD": 5.053102847966318,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"Improved version of `equation_v0`.\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized. The parameters are:\n            - params[0]: Rate constant for the first-order reaction\n            - params[1]: Rate constant for the first-order dependence on time\n            - params[2]: Rate constant for the second-order reaction\n            - params[3]: Rate constant for the first-order reaction term\n            - params[4]: Rate constant for the second-order reaction term\n            - params[5]: Rate constant for the first-order term with exponential dependence on time\n            - params[6]: Rate constant for the second-order term with exponential dependence on time\n            - params[7]: Rate constant for the oscillatory term\n            - params[8]: Frequency of the oscillatory term\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    dA_dt = params[0] * A + params[1] * t * A + params[2] * A**2 + params[3] * np.exp(-params[4] * t) * A + params[5] * np.sin(params[6] * t) * A + params[7] * np.exp(-params[8] * t)\n    return dA_dt\n\n"
+}

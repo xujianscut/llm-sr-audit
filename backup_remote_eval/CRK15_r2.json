@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK15_r2",
+ "ds": "CRK15",
+ "n_samples": 763,
+ "best_train_score": -2.0765599350779786e-07,
+ "refit_train_mse": 2.0765599350779786e-07,
+ "ID": 2.1248588308257308e-05,
+ "OOD": 0.011244387640984392,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # First-order reaction term\n    dA_dt_first_order = params[0] * np.exp(-params[1] * t) * A\n    \n    # Second-order reaction term\n    dA_dt_second_order = params[2] * A**2 * np.exp(-params[3] * t)\n    \n    # Temperature-dependent reaction term\n    dA_dt_temperature = params[4] * np.sin(t) * A\n    \n    # Catalyst-dependent reaction term\n    dA_dt_catalyst = params[5] * np.exp(-params[6] * t) * A\n    \n    # Autocatalytic reaction term\n    dA_dt_autocatalytic = params[7] * A**2 * np.exp(-params[8] * t)\n    \n    # Return the rate of change of concentration\n    dA_dt = dA_dt_first_order + dA_dt_second_order + dA_dt_temperature + dA_dt_catalyst + dA_dt_autocatalytic\n    \n    return dA_dt\n\n"
+}

@@ -1,0 +1,10 @@
+{
+ "log": "llmsr_logs/tlt/llama8b_CRK22_r2",
+ "ds": "CRK22",
+ "source": "anytime_tlt.json",
+ "n_samples": 1001,
+ "ID": 7.61062976953128e-06,
+ "OOD": 29.782182500016265,
+ "refit_matched": true,
+ "restarts": 0
+}

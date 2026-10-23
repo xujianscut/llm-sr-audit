@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK30_r1",
+ "ds": "CRK30",
+ "n_samples": 805,
+ "best_train_score": -1.6411172315785687e-08,
+ "refit_train_mse": 1.6411172315785687e-08,
+ "ID": 7.924500107869596e-05,
+ "OOD": 15.954060982998145,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"Improved version of `equation_v1` with additional terms for mass transport and autocatalytic reaction.\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # First-order reaction\n    dA_dt_first_order = -params[0] * A\n    \n    # Second-order reaction\n    dA_dt_second_order = params[1] * A**2\n    \n    # External factor\n    dA_dt_external = params[2] * np.exp(-params[3] * t)\n    \n    # Autocatalytic reaction with multiple terms\n    dA_dt_autocatalytic = params[4] * A**3 + params[5] * A**4\n    \n    # Mass transport\n    dA_dt_mass_transport = params[6] * (A - params[7] * t)\n    \n    # Total rate of change of concentration\n    dA_dt_total = dA_dt_first_order + dA_dt_second_order + dA_dt_external + dA_dt_autocatalytic + dA_dt_mass_transport\n    \n    return dA_dt_total\n\n"
+}

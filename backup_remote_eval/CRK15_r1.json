@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK15_r1",
+ "ds": "CRK15",
+ "n_samples": 735,
+ "best_train_score": -9.94030623898133e-08,
+ "refit_train_mse": 9.94030623898133e-08,
+ "ID": 9.557584222745593e-06,
+ "OOD": 0.009177166929621857,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"Improved version of `equation_v1`.\n    \n    Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized.\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # First-order reaction term\n    dA_dt_first_order = -params[0] * A\n    \n    # Second-order reaction term\n    dA_dt_second_order = -params[1] * A**2\n    \n    # Mass action term with inhibition\n    dA_dt_mass_action = params[2] * A / (params[3] + A**2)\n    \n    # Michaelis-Menten term\n    dA_dt_michaelis_menten = params[4] * A / (params[5] + A)\n    \n    # Langmuir-Hinshelwood term\n    dA_dt_langmuir_hinshelwood = params[6] * A**2 / (params[7] + A**2)\n    \n    # Volmer-Hinshelwood term\n    dA_dt_volmer_hinshelwood = params[8] * A / (params[9] + A)\n    \n    # Return the total rate of change\n    return dA_dt_first_order + dA_dt_second_order + dA_dt_mass_action + dA_dt_michaelis_menten + dA_dt_langmuir_hinshelwood + dA_dt_volmer_hinshelwood\n\n"
+}

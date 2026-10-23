@@ -1,0 +1,11 @@
+{
+ "log": "llmsr_logs/rikyu/llama8b_CRK30_r1",
+ "ds": "CRK30",
+ "source": "anytime_rikyu.json",
+ "n_samples": 1001,
+ "ID": 4.4822002578073834e-05,
+ "OOD": 2.1707224602820463,
+ "refit_matched": true,
+ "restarts": 2,
+ "remote_eval_OOD": 15.954060982998145
+}

@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK12_r1",
+ "ds": "CRK12",
+ "n_samples": 769,
+ "best_train_score": -1.843153312829551e-08,
+ "refit_train_mse": 1.843153312829551e-08,
+ "ID": 4.51204566565851e-06,
+ "OOD": 0.004090106768539598,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized.\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # Model the rate of change of concentration as a combination of first-order, second-order, and catalytic reactions\n    # dA/dt = -k1 * A + k2 * A**2 + k3 * A * np.exp(-k4 * t) + k5 * np.sin(k6 * t) * A + k7 * A**2 * np.exp(-k8 * t)\n    # Add a term to account for a possible inhibition reaction\n    # dA/dt = -k1 * A + k2 * A**2 + k3 * A * np.exp(-k4 * t) + k5 * np.sin(k6 * t) * A + k7 * A**2 * np.exp(-k8 * t) + k9 * A / (1 + k10 * A)\n    \n    dA_dt = -params[0] * A + params[1] * A**2 + params[2] * A * np.exp(-params[3] * t) + params[4] * np.sin(params[5] * t) * A + params[6] * A**2 * np.exp(-params[7] * t) + params[8] * A / (1 + params[9] * A)\n    return dA_dt\n\n"
+}

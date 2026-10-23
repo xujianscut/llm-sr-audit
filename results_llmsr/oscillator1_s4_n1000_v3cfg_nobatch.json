@@ -1,0 +1,17 @@
+{
+ "ds": "oscillator1",
+ "seed": 4,
+ "niter": 1000,
+ "wall_s": 411.8581790924072,
+ "expr": "(v - (-v*(v*v/x + x*x) - 0.40299183))*sin(sin(sin(sin(sin(sin(sin(x)))))))*(-0.5048092)",
+ "train": 5.235473301595199e-05,
+ "ID": 5.235569924074053e-05,
+ "OOD": 0.08590692733709723,
+ "acc_pick": {
+  "expr": "(-(-v*(v*sin(v)/sin(x) + x*(x + 0.014524687)) - 0.3989025) + sin(sin(sin(v))))*sin(sin(sin(sin(sin(sin(sin(sin(sin(x)))))))*(-0.51654094)))",
+  "complexity": 35,
+  "ID": 3.5027083827141065e-05,
+  "OOD": 0.08121585060814905
+ },
+ "tag": "_v3cfg_nobatch"
+}

@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK22_r3",
+ "ds": "CRK22",
+ "n_samples": 778,
+ "best_train_score": -7.941819876527377e-10,
+ "refit_train_mse": 7.941819876527377e-10,
+ "ID": 0.0039276690131177724,
+ "OOD": 7696.416714099544,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for rate of change of concentration in chemistry reaction kinetics\n    \n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized.\n    \n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \n    # First-order reaction rate\n    dA_dt_first_order = -params[0] * A\n    \n    # Second-order reaction rate\n    dA_dt_second_order = -params[1] * A**2\n    \n    # Generation rate (e.g., from a catalyst)\n    dA_dt_generation = params[2] * np.exp(-params[3] * t)\n    \n    # Diffusion rate (e.g., from the surroundings)\n    dA_dt_diffusion = params[4] * A + params[5] * np.exp(-params[6] * t**2)\n    \n    # Accumulation term (e.g., for a system with a finite volume)\n    dA_dt_accumulation = params[7] * np.sum(A)\n    \n    # Return the total rate of change\n    return dA_dt_first_order + dA_dt_second_order + dA_dt_generation + dA_dt_diffusion + dA_dt_accumulation\n\n"
+}

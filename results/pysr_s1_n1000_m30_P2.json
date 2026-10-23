@@ -1,0 +1,42 @@
+{
+ "pid": 2,
+ "name": "Glider (dimensionless)",
+ "method": "pysr",
+ "seed": 1,
+ "niter": 1000,
+ "maxsize": 30,
+ "wall_s": 117.98637676239014,
+ "exprs": [
+  "-0.2*x0**2 + sin(-x1 + sin(x1)*0.0001210349)",
+  "x0 - cos(x1)/(0.9994*x0 + 0.0002348*cos(sin(exp(exp(sin(sin(sin(-x0 + x1 + x1))))))))"
+ ],
+ "truth": [
+  "-x0**2 / c0 - np.sin(x1)",
+  "x0 - np.cos(x1) / x0"
+ ],
+ "params": {
+  "c0": 5.0
+ },
+ "ID": {
+  "residual": [
+   9.640002353405894e-10,
+   4.867084404426277e-08
+  ],
+  "integral": [
+   3.09593304315265e-09,
+   3.561773882001205e-09
+  ]
+ },
+ "OOD": {
+  "residual": [
+   1.3815193590987778e-08,
+   1.0303263011156066e-06
+  ],
+  "integral": [
+   5.577058236256891e-08,
+   1.2678114309783764e-09
+  ]
+ },
+ "success_ID": true,
+ "success_OOD": true
+}

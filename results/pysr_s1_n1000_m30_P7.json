@@ -1,0 +1,43 @@
+{
+ "pid": 7,
+ "name": "Ermentrout and Kopell 1990 oscillator death model",
+ "method": "pysr",
+ "seed": 1,
+ "niter": 1000,
+ "maxsize": 30,
+ "wall_s": 166.61662888526917,
+ "exprs": [
+  "sin(x1*cos(cos(exp(x1))*0.02279314*exp(cos(x0*x1)*0.53885764)))*cos(x0) + 1.432",
+  "sin(x1*(0.9989961 + sin(-0.3272044*x0 + cos(exp(x1)))*(-0.0010006949)))*cos(x0) + 0.972"
+ ],
+ "truth": [
+  "c0 + np.sin(x1) * np.cos(x0)",
+  "c1 + np.sin(x1) * np.cos(x0)"
+ ],
+ "params": {
+  "c0": 1.432,
+  "c1": 0.972
+ },
+ "ID": {
+  "residual": [
+   9.680158064900631e-09,
+   2.7609584687383284e-08
+  ],
+  "integral": [
+   1.1953905236534977e-11,
+   4.9067440392474034e-11
+  ]
+ },
+ "OOD": {
+  "residual": [
+   1.1091856609781599e-07,
+   5.976803849097576e-06
+  ],
+  "integral": [
+   1.7041402211718925e-10,
+   5.976690321731751e-08
+  ]
+ },
+ "success_ID": true,
+ "success_OOD": true
+}

@@ -1,0 +1,10 @@
+LLM-SR/
+DoLQ/
+srbench/
+crk_llmsr/
+outputs/
+llmsr_logs/
+__pycache__/
+*.pyc
+.DS_Store
+hall_of_fame*

@@ -1,0 +1,10 @@
+{
+ "log": "llmsr_logs/tlt/llama8b_CRK3_r3",
+ "ds": "CRK3",
+ "source": "anytime_tlt.json",
+ "n_samples": 1001,
+ "ID": 5.8318759377932195e-06,
+ "OOD": 0.5463229944112409,
+ "refit_matched": true,
+ "restarts": 0
+}

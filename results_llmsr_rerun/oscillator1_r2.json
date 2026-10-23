@@ -1,0 +1,11 @@
+{
+ "log": "llmsr_logs/tlt/llama8b_oscillator1_r2",
+ "ds": "oscillator1",
+ "source": "anytime_tlt.json",
+ "n_samples": 3001,
+ "ID": 5.5652792590072687e-08,
+ "OOD": 0.00017058846177737637,
+ "refit_matched": true,
+ "restarts": 3,
+ "remote_eval_OOD": 0.0001822842139336267
+}

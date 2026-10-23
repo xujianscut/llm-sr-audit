@@ -1,0 +1,11 @@
+{
+ "log": "llmsr_logs/tlt/llama8b_stressstrain_r2",
+ "ds": "stressstrain",
+ "source": "anytime_tlt.json",
+ "n_samples": 3001,
+ "ID": 0.021368020681701783,
+ "OOD": 0.039472559482138264,
+ "refit_matched": true,
+ "restarts": 0,
+ "remote_eval_OOD": 0.03945231961916287
+}

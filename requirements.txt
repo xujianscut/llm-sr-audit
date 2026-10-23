@@ -1,0 +1,9 @@
+pysr==2.7.1
+pysindy==2.1.0
+numpy
+scipy
+pandas
+sympy
+matplotlib
+h5py
+pyarrow

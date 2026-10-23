@@ -1,0 +1,22 @@
+--- a/llmsr/sampler.py
++++ b/llmsr/sampler.py
+@@ -170,7 +170,7 @@
+         """
+         super().__init__(samples_per_prompt)
+ 
+-        url = "http://127.0.0.1:5000/completions"
++        url = os.environ.get("LLMSR_URL", "http://127.0.0.1:5000/completions")
+         instruction_prompt = ("You are a helpful assistant tasked with discovering mathematical function structures for scientific systems. \
+                              Complete the 'equation' function below, considering the physical meaning and relationships of inputs.\n\n")
+         self._batch_inference = batch_inference
+--- a/main.py
++++ b/main.py
+@@ -29,7 +29,7 @@
+     class_config = config.ClassConfig(llm_class=sampler.LocalLLM, sandbox_class=evaluator.LocalSandbox)
+     config = config.Config(use_api = args.use_api, 
+                            api_model = args.api_model,)
+-    global_max_sample_num = 10000 
++    global_max_sample_num = int(os.environ.get("LLMSR_MAX", 10000)) 
+ 
+     # Load prompt specification
+     with open(

@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_CRK7_r3",
+ "ds": "CRK7",
+ "n_samples": 783,
+ "best_train_score": -5.4472235766824206e-08,
+ "refit_train_mse": 5.4472235766824206e-08,
+ "ID": 0.00015455710931704532,
+ "OOD": 0.46401647009057956,
+ "function": "def equation(t: np.ndarray, A: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for rate of change of concentration in chemistry reaction kinetics\n\n    Args:\n        t: A numpy array representing time.\n        A: A numpy array representing concentration at time t.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing rate of change of concentration in chemistry reaction kinetics as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"Improved version of `equation_v1`.\"\"\"\n    \n    # Introduce a new parameter for the dependency on the natural logarithm of concentration (ln(A))\n    ln_sat_param = params[4]\n    \n    # Update the equation with the additional dependency\n    k = params[0]\n    dA_dt = k * (1 - A**2 / (A**2 + np.exp(ln_sat_param))) + params[1] * np.exp(-t**2) + params[2] * np.sin(t) + params[3] * A + params[5] * A**2 + params[6] * A**3 + params[7] * np.sqrt(A) + params[8] * t + params[9] * np.exp(-t)\n    return dA_dt\n\n"
+}
