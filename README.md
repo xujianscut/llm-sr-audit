@@ -1,4 +1,4 @@
-# Copied baselines and uninformative success criteria in LLM-guided equation discovery
+# Copied Baselines and Uninformative Success Criteria in LLM-Guided Equation Discovery
 
 Code, configurations and raw results for the paper
 
@@ -8,9 +8,9 @@ Code, configurations and raw results for the paper
 The paper audits published LLM-based symbolic regression results on the LLM-SR benchmarks (LLM-SR, DecAEvolve, CoEvo) and on the DoLQ ODE benchmark. In brief:
 
 * The PySR baseline on the four LLM-SR datasets was reported once and copied verbatim into later papers. Rerunning PySR under the configuration stated in the original paper improves all eight reported numbers when aggregated the same way (best of five runs).
-* With both sides rerun under one protocol (Llama-3.1-8B for LLM-SR), LLM guidance and PySR are within about an order of magnitude of each other on the two oscillators, while LLM guidance gives genuine out-of-distribution gains on E. coli growth and on most LLM-SRBench chemistry tasks.
+* With both sides rerun under one protocol (Llama-3.1-8B, eight LLM-SR runs per dataset), LLM-SR wins at its natural budget on most datasets, but its runs take hours where PySR's take minutes. Given the same wall-clock time, PySR is at least as accurate on both oscillators, on stress-strain and on most LLM-SRBench chemistry tasks; only E. coli growth retains an LLM advantage, large in the median but with a bootstrap interval that still touches zero.
 * DoLQ's trajectory-error success criterion is passed by dense sparse regression and by closed-book LLM guesses with wrong structure; a held-out initial condition exposes them.
-* Run-to-run variation spans several orders of magnitude, so best-of-k numbers cannot be compared with medians.
+* Run-to-run variation spans several orders of magnitude (the median of three LLM-SR runs and of eight differ by six orders on Oscillator 2), so best-of-k numbers cannot be compared with medians.
 
 ## Layout
 
