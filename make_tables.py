@@ -122,7 +122,9 @@ def table_crk():
             rs = load_glob(f"{HERE}/results_crk/{n}_s[0-9]_n{it}.json", 3)
             I, O = finite_median([r["ID"] for r in rs]), finite_median([r["OOD"] for r in rs])
             wins[it][0] += I < dI; wins[it][1] += O < dO
-            cells += [fmt(I), fmt(O)]
+            if it == 1000: cells += [fmt(I), fmt(O)]
+        rh = load_glob(f"{HERE}/results_crk/{n}_s[0-9]_t3600.json", 1)
+        cells += [fmt(finite_median([r["ID"] for r in rh])), fmt(finite_median([r["OOD"] for r in rh]))]
         extra = ""
         if have_llmsr:
             rr = load_glob(f"{HERE}/results_crk_llmsr/{n}_r*.json", 3)
@@ -132,7 +134,7 @@ def table_crk():
     cm_extra = "\\cmidrule(lr){6-7}\\cmidrule(lr){8-9}\\cmidrule(lr){10-11}" if have_llmsr else "\\cmidrule(lr){6-7}\\cmidrule(lr){8-9}"
     ncol = 11 if have_llmsr else 9
     s = (f"\\begin{{tabular}}{{l{'c' * (ncol - 1)}}}\n\\toprule\n"
-         " & \\multicolumn{2}{c}{PySR 1k} & \\multicolumn{2}{c}{PySR 5k}" + head_extra +
+         " & \\multicolumn{2}{c}{PySR 1k} & \\multicolumn{2}{c}{PySR 1\\,h}" + head_extra +
          " & \\multicolumn{2}{c}{LLM-SR rep.} & \\multicolumn{2}{c}{DecAEvolve rep.} \\\\\n"
          "\\cmidrule(lr){2-3}\\cmidrule(lr){4-5}" + cm_extra + "\n"
          "Task" + " & ID & OOD" * ((ncol - 1) // 2) + " \\\\\n\\midrule\n" + "\n".join(rows) +
@@ -222,10 +224,10 @@ def raw_tables():
         for ds in DS:
             for tag, lab in (("default", "default"), ("_v3cfg_nobatch", "stated")):
                 rs = sorted(pysr_runs(ds, tag), key=lambda r: r["seed"])
-                rows.append(f"{DSNAME[ds]} & PySR ({lab}) & " + " & ".join(fmt(r[split]) for r in rs) + " \\\\")
-            rr = load_glob(f"{HERE}/results_llmsr_rerun/{ds}_r*.json", 3)
-            rows.append(f"{DSNAME[ds]} & LLM-SR & " + " & ".join(fmt(r[split]) for r in rr) + " & -- & -- \\\\")
-        write(f"raw_runs_{split.lower()}.tex", "\\begin{tabular}{llccccc}\n\\toprule\nDataset & Method & run 1 & run 2 & run 3 & run 4 & run 5 \\\\\n\\midrule\n"
+                rows.append(f"{DSNAME[ds]} & PySR ({lab}) & " + " & ".join(fmt(r[split]) for r in rs) + " & & & \\\\")
+            rr = sorted(load_glob(f"{HERE}/results_llmsr_rerun/{ds}_r*.json", 8), key=lambda r: int(r["log"].rsplit("_r", 1)[1]))
+            rows.append(f"{DSNAME[ds]} & LLM-SR & " + " & ".join(fmt(r[split]) for r in rr) + " \\\\")
+        write(f"raw_runs_{split.lower()}.tex", "\\begin{tabular}{ll" + "c" * 8 + "}\n\\toprule\nDataset & Method & " + " & ".join(str(i) for i in range(1, 9)) + " \\\\\n\\midrule\n"
               + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
     H = json.load(open(f"{HERE}/results_llmsr_rerun/dolq_heldout.json"))
     rows = []
@@ -244,6 +246,25 @@ def raw_tables():
             lines.append(f"           truth: {tr}")
     open(os.path.join(OUT, "dolq_exprs.txt"), "w").write("\n".join(lines) + "\n")
     print("wrote raw tables")
+
+
+# ---- bootstrap intervals for the same-protocol comparison -------------------------------
+def bootstrap_partition(B=20000, seed=0):
+    rng_ = np.random.default_rng(seed); rows = []; out = {}
+    for ds in DS:
+        res = {}
+        for split in ("ID", "OOD"):
+            p = np.log10(clip_pos([r[split] for r in pysr_runs(ds, "default")]))
+            l = np.log10(clip_pos([r[split] for r in load_glob(f"{HERE}/results_llmsr_rerun/{ds}_r*.json", 3)]))
+            bp = np.median(rng_.choice(p, (B, len(p))), 1); bl = np.median(rng_.choice(l, (B, len(l))), 1)
+            d = bp - bl                      # log10 (PySR median / LLM-SR median); > 0 favours LLM-SR
+            res[split] = (np.median(p) - np.median(l), np.percentile(d, 2.5), np.percentile(d, 97.5), len(p), len(l))
+        out[ds] = res
+        f = lambda t: f"{t[0]:+.1f} [{t[1]:+.1f}, {t[2]:+.1f}]"
+        rows.append(f"{DSNAME[ds]} & {res['ID'][3]} & {res['ID'][4]} & {f(res['ID'])} & {f(res['OOD'])} \\\\")
+    write("bootstrap.tex", "\\begin{tabular}{lcccc}\n\\toprule\nDataset & PySR runs & LLM-SR runs & ID & OOD \\\\\n\\midrule\n"
+          + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+    return out
 
 
 # ---- macros for every number quoted in the running text ---------------------------------
@@ -295,6 +316,86 @@ def write_macros():
     ho = S["dolq"]["heldout"]
     m["DolqHeldoutPysr"] = str(min(ho["pysr"])); m["DolqHeldoutSindy"] = str(ho["sindy"]); m["DolqHeldoutClosedbook"] = str(ho["closedbook"])
     th = theory_numbers(); m.update(th)
+    bs = bootstrap_partition()
+    m["NLlmsrRuns"] = str(min(v["OOD"][4] for v in bs.values()))
+    for key, ds in [("OscOne", "oscillator1"), ("OscTwo", "oscillator2"), ("Ecoli", "bactgrow"), ("Stress", "stressstrain")]:
+        for sp in ("ID", "OOD"):
+            v = bs[ds][sp]
+            m[f"{key}{sp}Boot"], m[f"{key}{sp}BootLo"], m[f"{key}{sp}BootHi"] = f"{v[0]:+.1f}", f"{v[1]:+.1f}", f"{v[2]:+.1f}"
+    m["NBootExcludeZero"] = str(sum((bs[d][sp][1] > 0) or (bs[d][sp][2] < 0) for d in DS for sp in ("ID", "OOD")))
+    for key, ds in [("OscOne", "oscillator1"), ("OscTwo", "oscillator2"), ("Ecoli", "bactgrow"), ("Stress", "stressstrain")]:
+        rr = sorted(load_glob(f"{HERE}/results_llmsr_rerun/{ds}_r*.json", 8), key=lambda r: int(r["log"].rsplit("_r", 1)[1]))
+        pp = pysr_runs(ds, "default") + pysr_runs(ds, "_v3cfg_nobatch")
+        m[f"{key}LlmsrExact"] = str(sum(r["OOD"] < 1e-6 for r in rr)); m[f"{key}NLlmsr"] = str(len(rr))
+        m[f"{key}PysrExact"] = str(sum(r["OOD"] < 1e-6 for r in pp)); m[f"{key}NPysr"] = str(len(pp))
+        m[f"{key}LlmsrMedFirstThree"] = fmt(finite_median([r["OOD"] for r in rr[:3]]))
+        m[f"{key}LlmsrMedAll"] = fmt(finite_median([r["OOD"] for r in rr]))
+        m[f"{key}FirstThreeVsAllDecades"] = f"{abs(np.log10(finite_median([r['OOD'] for r in rr[:3]]) / finite_median([r['OOD'] for r in rr]))):.0f}"
+    # compute-matched comparison (Section "compute"): PySR with a one-hour wall-clock budget versus
+    # LLM-SR anytime curves read at one hour and at the end of each run
+    A = json.load(open(f"{HERE}/results_llmsr_rerun/anytime_tlt.json"))
+    conc = lambda run: 12 if int(run.rsplit("_r", 1)[1]) <= 3 else 20       # concurrent runs sharing the GPU
+    for key, ds in [("OscOne", "oscillator1"), ("OscTwo", "oscillator2"), ("Ecoli", "bactgrow"), ("Stress", "stressstrain")]:
+        runs = [r for r in A if r["ds"] == ds]
+        assert len(runs) == 8, (ds, len(runs))
+        m[f"{key}LlmsrWallHours"] = f"{np.median([r['curve'][-1]['wall_s'] for r in runs]) / 3600:.1f}"
+        m[f"{key}LlmsrGpuHours"] = f"{np.median([r['curve'][-1]['wall_s'] / conc(r['run']) for r in runs]) / 3600:.2f}"
+        at1h = [max((c for c in r["curve"] if c["wall_s"] <= 3600), key=lambda c: c["wall_s"]) for r in runs]
+        m[f"{key}LlmsrOneHourOOD"] = fmt(finite_median([c["OOD"] for c in at1h]))
+        m[f"{key}LlmsrOneHourExact"] = str(sum(c["OOD"] < 1e-6 for c in at1h))
+        m[f"{key}LlmsrOneHourSamples"] = str(int(np.median([c["n"] for c in at1h])))
+        hr = [json.load(open(f)) for f in glob.glob(f"{HERE}/results_llmsr/{ds}_s[0-9]_nobatch_t3600.json")]
+        if hr:
+            m[f"{key}PysrHourN"] = str(len(hr)); m[f"{key}PysrHourExact"] = str(sum(r["OOD"] < 1e-6 for r in hr))
+            m[f"{key}PysrHourOOD"] = fmt(finite_median([r["OOD"] for r in hr]))
+            m[f"{key}PysrHourID"] = fmt(finite_median([r["ID"] for r in hr]))
+    # matched-time margins on the oscillators, E. coli crossing time, CRK at one hour
+    ratios = []
+    for key, ds in [("OscOne", "oscillator1"), ("OscTwo", "oscillator2")]:
+        if f"{key}PysrHourOOD" in m:
+            runs = [r for r in A if r["ds"] == ds]
+            at1h = [max((c for c in r["curve"] if c["wall_s"] <= 3600), key=lambda c: c["wall_s"])["OOD"] for r in runs]
+            hr = [json.load(open(f))["OOD"] for f in glob.glob(f"{HERE}/results_llmsr/{ds}_s[0-9]_nobatch_t3600.json")]
+            ratios.append(finite_median(at1h) / finite_median(hr))
+    if ratios:
+        m["OneHourMinRatio"] = f"{min(ratios):.1f}"
+    hr = [json.load(open(f))["OOD"] for f in glob.glob(f"{HERE}/results_llmsr/bactgrow_s[0-9]_nobatch_t3600.json")]
+    if len(hr) == 3:
+        ph = finite_median(hr); runs = [r for r in A if r["ds"] == "bactgrow"]
+        ns = sorted({c["n"] for r in runs for c in r["curve"]})
+        cross = None
+        for n in ns:
+            cs = [c for r in runs for c in r["curve"] if c["n"] == n]
+            if len(cs) == len(runs) and finite_median([c["OOD"] for c in cs]) < ph:
+                cross = np.median([c["wall_s"] for c in cs]); break
+        m["EcoliPysrHourOOD"] = fmt(ph)
+        m["EcoliCrossHours"] = "never" if cross is None else f"{cross / 3600:.1f}"
+    AC = json.load(open(f"{HERE}/results_llmsr_rerun/anytime_rikyu.json")) + [r for r in A if r["ds"].startswith("CRK")]
+    nh = n1 = ne = 0
+    for n in CRK:
+        hf = glob.glob(f"{HERE}/results_crk/{n}_s[0-9]_t3600.json")
+        if not hf: continue
+        nh += 1; ph = finite_median([json.load(open(f))["OOD"] for f in hf])
+        runs = [r for r in AC if r["ds"] == n]
+        at1h = finite_median([max((c for c in r["curve"] if c["wall_s"] <= 3600), key=lambda c: c["wall_s"])["OOD"] for r in runs])
+        end = finite_median([r["curve"][-1]["OOD"] for r in runs])
+        n1 += at1h < ph; ne += end < ph
+    nd = sum(REPORTED_CRK[n][1] < finite_median([json.load(open(f))["OOD"] for f in glob.glob(f"{HERE}/results_crk/{n}_s[0-9]_t3600.json")])
+             for n in CRK if glob.glob(f"{HERE}/results_crk/{n}_s[0-9]_t3600.json"))
+    m["CrkDecaBeatsPysrHour"] = str(nd)
+    m["EcoliPysrOneKOOD"] = fmt(finite_median([r["OOD"] for r in pysr_runs("bactgrow", "default")]))
+    ek = [r["OOD"] for r in pysr_runs("bactgrow", "default")]
+    eh = [json.load(open(f))["OOD"] for f in glob.glob(f"{HERE}/results_llmsr/bactgrow_s[0-9]_nobatch_t3600.json")]
+    m["EcoliPysrHeavyOneK"], m["EcoliPysrNOneK"] = str(sum(not (o < 100) for o in ek)), str(len(ek))
+    m["EcoliPysrHeavyHour"] = str(sum(not (o < 100) for o in eh))
+    if nh:
+        m["CrkHourTasks"], m["CrkLlmsrBeatsPysrHourAtOneHour"], m["CrkLlmsrBeatsPysrHourAtEnd"] = str(nh), str(n1), str(ne)
+        m["CrkLlmsrWallHours"] = f"{np.median([r['curve'][-1]['wall_s'] for r in AC if r['ds'].startswith('CRK')]) / 3600:.1f}"
+    nc = [len(load_glob(f"{HERE}/results_crk_llmsr/{n}_r*.json", 6)) for n in CRK]
+    m["NCrkLlmsrRuns"] = str(min(nc))
+    rs = json.load(open(f"{HERE}/results_llmsr_rerun/refit_sensitivity.json"))
+    m["RefitRuns"], m["RefitRestarted"], m["RefitUnmatched"] = str(rs["n"]), str(rs["restarted"]), str(rs["unmatched"])
+    m["RefitRemoteDisagreePct"], m["RefitRemoteMaxFactor"] = f"{100 * rs['frac_gt_2']:.0f}", f"{rs['max']:,.0f}"
     tex = "".join(f"\\newcommand{{\\{k}}}{{{v}}}\n" for k, v in sorted(m.items()))
     open(os.path.join(OUT, "numbers.tex"), "w").write(tex)
     print(tex)

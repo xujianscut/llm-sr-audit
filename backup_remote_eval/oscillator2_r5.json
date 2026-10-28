@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_oscillator2_r5",
+ "ds": "oscillator2",
+ "n_samples": 2603,
+ "best_train_score": -3.457335447527605e-10,
+ "refit_train_mse": 3.457335447527605e-10,
+ "ID": 2.1031269186034646e-09,
+ "OOD": 6.477987672484111e-08,
+ "function": "def equation(t: np.ndarray, x: np.ndarray, v: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for acceleration in a damped nonlinear oscillator\n\n    Args:\n        t: A numpy array representing time.\n        x: A numpy array representing observations of current position.\n        v: A numpy array representing observations of velocity.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing acceleration as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"\n    Mathematical function for acceleration in a damped nonlinear oscillator\n    \n    Args:\n        t: A numpy array representing time.\n        x: A numpy array representing observations of current position.\n        v: A numpy array representing observations of velocity.\n        params: Array of numeric constants or parameters to be optimized\n    \n    Return:\n        A numpy array representing acceleration as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    gamma = params[0]  # damping coefficient\n    beta = params[1]   # spring constant\n    F = params[2]      # driving force\n    omega = params[3]   # frequency of driving force\n    phi = params[4]     # phase of driving force\n    delta = params[5]   # nonlinearity coefficient\n    epsilon = params[6] # nonlinearity frequency\n    zeta = params[7]    # nonlinear phase\n    theta = params[8]   # damping ratio\n    alpha = params[9]   # driving force frequency ratio\n    \n    # assuming driving force is a sinusoidal function of time\n    dv = -gamma * v - beta * x + F * np.sin(omega * t + phi) + delta * x**2 * np.sin(epsilon * t + zeta) + theta * v**2 + alpha * v**3\n    \n    # compute acceleration\n    dv_dt = np.gradient(dv, t)\n    \n    return dv_dt\n\n"
+}

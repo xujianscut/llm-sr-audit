@@ -2,7 +2,7 @@
 
 Code, configurations and raw results for the paper
 
-> **Copied baselines and uninformative success criteria: re-examining the gains of LLM-guided scientific equation discovery**
+> **Copied Baselines and Uninformative Success Criteria: Re-examining the Gains of LLM-Guided Scientific Equation Discovery**
 > Jian Xu (RIKEN iTHEMS). Under review.
 
 The paper audits published LLM-based symbolic regression results on the LLM-SR benchmarks (LLM-SR, DecAEvolve, CoEvo) and on the DoLQ ODE benchmark. In brief:

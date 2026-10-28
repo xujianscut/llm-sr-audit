@@ -22,7 +22,10 @@ def main():
     assert tr.shape == (4000, len(props))
     from pysr import PySRRegressor
     t0 = time.time()
-    m = PySRRegressor(niterations=niter, binary_operators=["+", "-", "*", "/", "^"],
+    tbudget = os.environ.get("TBUDGET")
+    if tbudget:
+        niter = 1000000
+    m = PySRRegressor(niterations=niter, **({"timeout_in_seconds": float(tbudget)} if tbudget else {}), binary_operators=["+", "-", "*", "/", "^"],
                       unary_operators=["sin", "cos", "exp", "log", "sqrt"], maxsize=35,
                       constraints={"^": (-1, 1)}, random_state=seed, verbosity=0, progress=False,
                       temp_equation_file=True, model_selection="best")
@@ -35,7 +38,9 @@ def main():
                              ID=nmse(te[:, 0], m.predict(te[:, 1:], index=i_acc)),
                              OOD=nmse(ood[:, 0], m.predict(ood[:, 1:], index=i_acc))))
     os.makedirs("results_crk", exist_ok=True)
-    json.dump(res, open(f"results_crk/{name}_s{seed}_n{niter}.json", "w"), indent=1)
+    tag = f"_t{tbudget}" if tbudget else f"_n{niter}"
+    res["tag"] = tag
+    json.dump(res, open(f"results_crk/{name}_s{seed}{tag}.json", "w"), indent=1)
     print(f"{name} s{seed} {res['wall_s']:.0f}s best ID={res['ID']:.2e} OOD={res['OOD']:.2e} | minloss ID={res['acc_pick']['ID']:.2e} OOD={res['acc_pick']['OOD']:.2e}", flush=True)
 
 

@@ -1,0 +1,10 @@
+{
+ "log": "./logs/llama8b_oscillator2_r6",
+ "ds": "oscillator2",
+ "n_samples": 2626,
+ "best_train_score": -7.752608009285618e-11,
+ "refit_train_mse": 7.752608009285618e-11,
+ "ID": 4.725150250171909e-10,
+ "OOD": 1.3253499686408925e-08,
+ "function": "def equation(t: np.ndarray, x: np.ndarray, v: np.ndarray, params: np.ndarray) -> np.ndarray:\n    \"\"\" Mathematical function for acceleration in a damped nonlinear oscillator\n\n    Args:\n        t: A numpy array representing time.\n        x: A numpy array representing observations of current position.\n        v: A numpy array representing observations of velocity.\n        params: Array of numeric constants or parameters to be optimized\n\n    Return:\n        A numpy array representing acceleration as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    \"\"\"Improved version of `equation_v1`.\n    \n    Args:\n        t: A numpy array representing time.\n        x: A numpy array representing observations of current position.\n        v: A numpy array representing observations of velocity.\n        params: Array of numeric constants or parameters to be optimized.\n    \n    Return:\n        A numpy array representing acceleration as the result of applying the mathematical function to the inputs.\n    \"\"\"\n    # Extract parameters\n    beta, alpha, gamma, omega, delta, epsilon, eta, zeta = params[:8]\n    \n    # Define the terms of the equation\n    term1 = -beta * v\n    term2 = -alpha * x\n    term3 = gamma * np.sin(omega * t)\n    term4 = delta * np.exp(-epsilon * x)\n    term5 = eta * np.sin(v)\n    term6 = zeta * np.cos(x)\n    \n    # Compute the acceleration using finite differences\n    a = np.gradient(term1 + term2 + term3 + term4 + term5 + term6, t, edge_order=2)\n    \n    return a\n\n"
+}

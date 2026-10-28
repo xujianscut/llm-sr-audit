@@ -1,0 +1,17 @@
+{
+ "ds": "stressstrain",
+ "seed": 1,
+ "niter": 1000000,
+ "wall_s": 103.44255495071411,
+ "expr": "(-9.306195e-27**strain + cos(strain*temp*(strain + temp)))*sin((4.4028015e-28**strain*2.4016845 + 1.1096936)*cos(temp)**2.4016845)",
+ "train": 0.015078750274404586,
+ "ID": 0.01784230986618676,
+ "OOD": 0.06546603663397255,
+ "acc_pick": {
+  "expr": "(-(8.805603e-28/sin(5.1097685e-28**strain))**strain + cos(strain*temp*(strain + temp)))*sin((8.805603e-28**strain + 8.805603e-28**strain + 1.160572)*cos(temp)**2.4016845)*0.96445644",
+  "complexity": 35,
+  "ID": 0.016246031177333878,
+  "OOD": 0.06611805316691388
+ },
+ "tag": "_nobatch_t100"
+}
