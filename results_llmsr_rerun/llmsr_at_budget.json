@@ -1,0 +1,1566 @@
+[
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK12_r1",
+  "ds": "CRK12",
+  "budget_s": 3600,
+  "shared": {
+   "n": 493,
+   "ID": 1.4439200260284631e-05,
+   "OOD": 0.0017034450165460207,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 975,
+   "ID": 8.037836666704718e-06,
+   "OOD": 0.04242142188449369,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK12_r2",
+  "ds": "CRK12",
+  "budget_s": 3600,
+  "shared": {
+   "n": 493,
+   "ID": 4.380211335396767e-05,
+   "OOD": 0.05129277152856105,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 975,
+   "ID": 1.7436240758259432e-06,
+   "OOD": 0.0027517931595757955,
+   "matched": false
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK12_r3",
+  "ds": "CRK12",
+  "budget_s": 3600,
+  "shared": {
+   "n": 493,
+   "ID": 1.6760258345991852e-05,
+   "OOD": 0.06806684035605137,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 975,
+   "ID": 6.978615376916013e-06,
+   "OOD": 0.024404549934259178,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK15_r1",
+  "ds": "CRK15",
+  "budget_s": 3600,
+  "shared": {
+   "n": 489,
+   "ID": 5.489969922824147e-07,
+   "OOD": 0.0006374623817895237,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 5.489969922824147e-07,
+   "OOD": 0.0006374623817895237,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK15_r2",
+  "ds": "CRK15",
+  "budget_s": 3600,
+  "shared": {
+   "n": 489,
+   "ID": 4.948861616247104e-07,
+   "OOD": 0.0002522480645731306,
+   "matched": false
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 4.948861616247104e-07,
+   "OOD": 0.0002522480645731306,
+   "matched": false
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK15_r3",
+  "ds": "CRK15",
+  "budget_s": 3600,
+  "shared": {
+   "n": 493,
+   "ID": 2.3787665512847696e-05,
+   "OOD": 0.1856577337718024,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 1.6758521824930625e-05,
+   "OOD": 0.09184439347358857,
+   "matched": false
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK17_r1",
+  "ds": "CRK17",
+  "budget_s": 3600,
+  "shared": {
+   "n": 489,
+   "ID": 0.00010558024180031194,
+   "OOD": 0.44171516649198894,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 974,
+   "ID": 7.884850779288334e-06,
+   "OOD": 0.04841903004831284,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK17_r2",
+  "ds": "CRK17",
+  "budget_s": 3600,
+  "shared": {
+   "n": 493,
+   "ID": 3.7023090370470075e-06,
+   "OOD": 0.002174039722991962,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 974,
+   "ID": 3.7023090370470075e-06,
+   "OOD": 0.002174039722991962,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK17_r3",
+  "ds": "CRK17",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 1.3573852196035536e-05,
+   "OOD": 0.025518273108867857,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 974,
+   "ID": 9.2867231591233e-06,
+   "OOD": 0.00660154130225705,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK19_r1",
+  "ds": "CRK19",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 0.00030268661208884275,
+   "OOD": 29.57010620608748,
+   "matched": false
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 0.00030268661208884275,
+   "OOD": 29.57010620608748,
+   "matched": false
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK19_r2",
+  "ds": "CRK19",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 8.393057078367573e-05,
+   "OOD": 10.16384657323698,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 1.6502000631330528e-05,
+   "OOD": 0.2386362657486598,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK19_r3",
+  "ds": "CRK19",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 6.138923945243674e-05,
+   "OOD": 2.3138878296997283,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 6.138923945243674e-05,
+   "OOD": 2.3138878296997283,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK22_r1",
+  "ds": "CRK22",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 8.326358135751242e-07,
+   "OOD": 9.006407293620212,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 6.869436210480325e-06,
+   "OOD": 78.75834809759873,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK22_r2",
+  "ds": "CRK22",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 7.61062976953128e-06,
+   "OOD": 29.782182500016265,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 7.61062976953128e-06,
+   "OOD": 29.782182500016265,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK22_r3",
+  "ds": "CRK22",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 1.720891173586643e-05,
+   "OOD": 29.932765279075745,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 8.3113634114344e-06,
+   "OOD": 15.632337841099844,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK28_r1",
+  "ds": "CRK28",
+  "budget_s": 3600,
+  "shared": {
+   "n": 493,
+   "ID": 0.0009324295011890071,
+   "OOD": 5.2472904537581275,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 0.00018148385602737997,
+   "OOD": 0.2462309976438069,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK28_r2",
+  "ds": "CRK28",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 0.0002484483227397173,
+   "OOD": 4.955384213139933,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 0.0002484483227397173,
+   "OOD": 4.955384213139933,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK28_r3",
+  "ds": "CRK28",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 0.0027505176229296853,
+   "OOD": 112.37033397985631,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 0.0004917814572671907,
+   "OOD": 0.48581336950147247,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK30_r1",
+  "ds": "CRK30",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 0.00013477434616220274,
+   "OOD": 0.28620255025602315,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 993,
+   "ID": 5.2418356482804686e-05,
+   "OOD": 0.11666884170635726,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK30_r2",
+  "ds": "CRK30",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 20.995737208518435,
+   "OOD": 1341.7193505858759,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 993,
+   "ID": 0.00010545641079349048,
+   "OOD": 1.9785649841335717,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK30_r3",
+  "ds": "CRK30",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 0.00014945337223023274,
+   "OOD": 3.400003397720453,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 993,
+   "ID": 2.5389912331195078e-05,
+   "OOD": 1.3007310625847128,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK3_r1",
+  "ds": "CRK3",
+  "budget_s": 3600,
+  "shared": {
+   "n": 493,
+   "ID": 7.562063971641946e-05,
+   "OOD": 5.859597508222796,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 7.562063971641946e-05,
+   "OOD": 5.859597508222796,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK3_r2",
+  "ds": "CRK3",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 5.448353323024238e-05,
+   "OOD": 4.361571221813487,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 2.749733909258026e-05,
+   "OOD": 20.39866798954099,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK3_r3",
+  "ds": "CRK3",
+  "budget_s": 3600,
+  "shared": {
+   "n": 493,
+   "ID": 0.00010724888016259389,
+   "OOD": 0.9806141829536589,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 5.8318759377932195e-06,
+   "OOD": 0.5463229944112409,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK4_r1",
+  "ds": "CRK4",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 5.619526566130961e-06,
+   "OOD": 1.0652194515720672,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 5.299029522898043e-06,
+   "OOD": 0.44770512169542215,
+   "matched": false
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK4_r2",
+  "ds": "CRK4",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 6.1626781986004915e-06,
+   "OOD": 0.7104953348063069,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 6.1626781986004915e-06,
+   "OOD": 0.7104953348063069,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK4_r3",
+  "ds": "CRK4",
+  "budget_s": 3600,
+  "shared": {
+   "n": 498,
+   "ID": 2.6388383762430454e-06,
+   "OOD": 0.059901971544281174,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 1.2972329469693185e-05,
+   "OOD": 0.0074302791551725126,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK7_r1",
+  "ds": "CRK7",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 0.0001631913024356105,
+   "OOD": 0.11186665354303055,
+   "matched": false
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 0.0001631913024356105,
+   "OOD": 0.11186665354303055,
+   "matched": false
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK7_r2",
+  "ds": "CRK7",
+  "budget_s": 3600,
+  "shared": {
+   "n": 489,
+   "ID": 7.593809439498473e-05,
+   "OOD": 0.49829558393259366,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 7.593809439498473e-05,
+   "OOD": 0.49829558393259366,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_CRK7_r3",
+  "ds": "CRK7",
+  "budget_s": 3600,
+  "shared": {
+   "n": 497,
+   "ID": 8.924759905312843e-05,
+   "OOD": 0.5240811513141724,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 8.136515862460567e-05,
+   "OOD": 0.14907398597756674,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_bactgrow_r1",
+  "ds": "bactgrow",
+  "budget_s": 3600,
+  "shared": {
+   "n": 701,
+   "ID": 0.3397929013728479,
+   "OOD": 17.94148718803936,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 961,
+   "ID": 0.020931453157475136,
+   "OOD": 0.07357292661437682,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_bactgrow_r2",
+  "ds": "bactgrow",
+  "budget_s": 3600,
+  "shared": {
+   "n": 697,
+   "ID": 0.02092890209088154,
+   "OOD": 0.02954475322945976,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 961,
+   "ID": 0.02092890209088154,
+   "OOD": 0.02954475322945976,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_bactgrow_r3",
+  "ds": "bactgrow",
+  "budget_s": 3600,
+  "shared": {
+   "n": 701,
+   "ID": 0.016450535048142582,
+   "OOD": 0.07524559477738749,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 961,
+   "ID": 0.016450535048142582,
+   "OOD": 0.07524559477738749,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_bactgrow_r4",
+  "ds": "bactgrow",
+  "budget_s": 3600,
+  "shared": {
+   "n": 569,
+   "ID": 0.13171226372376127,
+   "OOD": 0.22539186555278776,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 961,
+   "ID": 0.13171226372376127,
+   "OOD": 0.22539186555278776,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_bactgrow_r5",
+  "ds": "bactgrow",
+  "budget_s": 3600,
+  "shared": {
+   "n": 573,
+   "ID": 0.7196029597258199,
+   "OOD": 0.9677475904205403,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 961,
+   "ID": 0.3483188430822448,
+   "OOD": 1780724217.516684,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_bactgrow_r6",
+  "ds": "bactgrow",
+  "budget_s": 3600,
+  "shared": {
+   "n": 573,
+   "ID": 0.020633961166403147,
+   "OOD": 0.024556943416467008,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 961,
+   "ID": 0.020633961166403147,
+   "OOD": 0.024556943416467008,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_bactgrow_r7",
+  "ds": "bactgrow",
+  "budget_s": 3600,
+  "shared": {
+   "n": 569,
+   "ID": 0.26835569971509377,
+   "OOD": 109.70174720385184,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 961,
+   "ID": 0.26835569971509377,
+   "OOD": 109.70174720385184,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_bactgrow_r8",
+  "ds": "bactgrow",
+  "budget_s": 3600,
+  "shared": {
+   "n": 569,
+   "ID": 0.5567758111489591,
+   "OOD": 1.4154495875749387,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 961,
+   "ID": 0.5435756581585587,
+   "OOD": 57.2857284923767,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator1_r1",
+  "ds": "oscillator1",
+  "budget_s": 3600,
+  "shared": {
+   "n": 677,
+   "ID": 1.3145533980338954e-05,
+   "OOD": 0.024488439416903145,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 913,
+   "ID": 2.0139071025518983e-06,
+   "OOD": 0.060051222468491545,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator1_r2",
+  "ds": "oscillator1",
+  "budget_s": 3600,
+  "shared": {
+   "n": 664,
+   "ID": 1.3241133070792918e-05,
+   "OOD": 0.000898921609159264,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 913,
+   "ID": 1.9406999113097063e-06,
+   "OOD": 0.020993551058098543,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator1_r3",
+  "ds": "oscillator1",
+  "budget_s": 3600,
+  "shared": {
+   "n": 673,
+   "ID": 4.280612547530125e-06,
+   "OOD": 0.030347623417002662,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 913,
+   "ID": 4.280612547530125e-06,
+   "OOD": 0.030347623417002662,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator1_r4",
+  "ds": "oscillator1",
+  "budget_s": 3600,
+  "shared": {
+   "n": 553,
+   "ID": 5.1522509302312143e-08,
+   "OOD": 0.00018570950842909577,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 913,
+   "ID": 5.1522509302312143e-08,
+   "OOD": 0.00018570950842909577,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator1_r5",
+  "ds": "oscillator1",
+  "budget_s": 3600,
+  "shared": {
+   "n": 541,
+   "ID": 4.986065078911229e-05,
+   "OOD": 0.024473732972080855,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 913,
+   "ID": 1.2588269874635768e-06,
+   "OOD": 0.02109957608749644,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator1_r6",
+  "ds": "oscillator1",
+  "budget_s": 3600,
+  "shared": {
+   "n": 545,
+   "ID": 2.523142012746136e-05,
+   "OOD": 0.03113068728020376,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 913,
+   "ID": 1.7769764305837337e-06,
+   "OOD": 0.03055204876638407,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator1_r7",
+  "ds": "oscillator1",
+  "budget_s": 3600,
+  "shared": {
+   "n": 545,
+   "ID": 9.269538852466611e-05,
+   "OOD": 0.029488714604344803,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 913,
+   "ID": 8.454506524543832e-05,
+   "OOD": 0.031034484997463387,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator1_r8",
+  "ds": "oscillator1",
+  "budget_s": 3600,
+  "shared": {
+   "n": 553,
+   "ID": 2.7672741305419565e-05,
+   "OOD": 0.014685123923987296,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 913,
+   "ID": 2.0406500387380364e-07,
+   "OOD": 0.01998048523295571,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator2_r1",
+  "ds": "oscillator2",
+  "budget_s": 3600,
+  "shared": {
+   "n": 669,
+   "ID": 1.6630379396695303e-05,
+   "OOD": 0.00379595305672623,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 891,
+   "ID": 1.6630379396695303e-05,
+   "OOD": 0.00379595305672623,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator2_r2",
+  "ds": "oscillator2",
+  "budget_s": 3600,
+  "shared": {
+   "n": 681,
+   "ID": 5.40550011292069e-05,
+   "OOD": 0.009278163702804602,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 891,
+   "ID": 5.40550011292069e-05,
+   "OOD": 0.009278163702804602,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator2_r3",
+  "ds": "oscillator2",
+  "budget_s": 3600,
+  "shared": {
+   "n": 665,
+   "ID": 5.597541905030111e-06,
+   "OOD": 0.001410829688427971,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 891,
+   "ID": 5.597541905030111e-06,
+   "OOD": 0.001410829688427971,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator2_r4",
+  "ds": "oscillator2",
+  "budget_s": 3600,
+  "shared": {
+   "n": 541,
+   "ID": 0.0013598037384452977,
+   "OOD": 0.03470580906804813,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 891,
+   "ID": 4.875474595971213e-05,
+   "OOD": 0.019890853094727518,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator2_r5",
+  "ds": "oscillator2",
+  "budget_s": 3600,
+  "shared": {
+   "n": 533,
+   "ID": 3.868414405989526e-09,
+   "OOD": 1.0143744688461874e-09,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 891,
+   "ID": 3.868414405989526e-09,
+   "OOD": 1.0143744688461874e-09,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator2_r6",
+  "ds": "oscillator2",
+  "budget_s": 3600,
+  "shared": {
+   "n": 541,
+   "ID": 9.727391634293941e-10,
+   "OOD": 1.4512935111454992e-10,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 891,
+   "ID": 9.725512445045293e-10,
+   "OOD": 1.4469339679962778e-10,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator2_r7",
+  "ds": "oscillator2",
+  "budget_s": 3600,
+  "shared": {
+   "n": 557,
+   "ID": 9.727391634293941e-10,
+   "OOD": 1.4512935111454992e-10,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 891,
+   "ID": 9.727391634293941e-10,
+   "OOD": 1.4512935111454992e-10,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_oscillator2_r8",
+  "ds": "oscillator2",
+  "budget_s": 3600,
+  "shared": {
+   "n": 525,
+   "ID": 4.191830288507119e-12,
+   "OOD": 8.082690956805847e-12,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 891,
+   "ID": 4.191830288507119e-12,
+   "OOD": 8.082690956805847e-12,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_stressstrain_r1",
+  "ds": "stressstrain",
+  "budget_s": 3600,
+  "shared": {
+   "n": 709,
+   "ID": 0.04633451272267173,
+   "OOD": 0.14437780877204817,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 0.02517606135003433,
+   "OOD": 0.07820313755228527,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_stressstrain_r2",
+  "ds": "stressstrain",
+  "budget_s": 3600,
+  "shared": {
+   "n": 709,
+   "ID": 0.028435475226013567,
+   "OOD": 0.1388970335503239,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 0.021315174078914912,
+   "OOD": 0.05263810094636185,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_stressstrain_r3",
+  "ds": "stressstrain",
+  "budget_s": 3600,
+  "shared": {
+   "n": 709,
+   "ID": 0.03843301608363441,
+   "OOD": 0.15659796945392648,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 0.03843301608363441,
+   "OOD": 0.15659796945392648,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_stressstrain_r4",
+  "ds": "stressstrain",
+  "budget_s": 3600,
+  "shared": {
+   "n": 577,
+   "ID": 0.03585193531943269,
+   "OOD": 0.1797324782202395,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 0.03585193531943269,
+   "OOD": 0.1797324782202395,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_stressstrain_r5",
+  "ds": "stressstrain",
+  "budget_s": 3600,
+  "shared": {
+   "n": 577,
+   "ID": 0.06185796113965746,
+   "OOD": 0.15572286407268598,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 0.039014822097237105,
+   "OOD": 0.18275148170454986,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_stressstrain_r6",
+  "ds": "stressstrain",
+  "budget_s": 3600,
+  "shared": {
+   "n": 573,
+   "ID": 0.06412784751687255,
+   "OOD": 0.24587205479937851,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 0.06412784751687255,
+   "OOD": 0.24587205479937851,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_stressstrain_r7",
+  "ds": "stressstrain",
+  "budget_s": 3600,
+  "shared": {
+   "n": 577,
+   "ID": 0.027417903964702384,
+   "OOD": 0.1615329567859611,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 0.027417903964702384,
+   "OOD": 0.1615329567859611,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/tlt/llama8b_stressstrain_r8",
+  "ds": "stressstrain",
+  "budget_s": 3600,
+  "shared": {
+   "n": 577,
+   "ID": 0.05697818786822549,
+   "OOD": 0.22858592510594378,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 0.05649671111583854,
+   "OOD": 0.19993369010239354,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK12_r1",
+  "ds": "CRK12",
+  "budget_s": 3600,
+  "shared": {
+   "n": 309,
+   "ID": 6.952131306654297e-05,
+   "OOD": 0.37182614847820444,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 975,
+   "ID": 2.3683770304469184e-05,
+   "OOD": 0.0061291057009637325,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK12_r2",
+  "ds": "CRK12",
+  "budget_s": 3600,
+  "shared": {
+   "n": 310,
+   "ID": 0.00012420176056989455,
+   "OOD": 0.3539108087046516,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 975,
+   "ID": 8.584292645070267e-06,
+   "OOD": 0.020805780414067405,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK12_r3",
+  "ds": "CRK12",
+  "budget_s": 3600,
+  "shared": {
+   "n": 309,
+   "ID": 0.00011142678916311832,
+   "OOD": 0.14244453836453227,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 975,
+   "ID": 5.956690424966762e-06,
+   "OOD": 0.012507615161900293,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK15_r1",
+  "ds": "CRK15",
+  "budget_s": 3600,
+  "shared": {
+   "n": 309,
+   "ID": 1.3119254720610899e-05,
+   "OOD": 0.18113979181124457,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 3.5645321081206123e-06,
+   "OOD": 3.73109697094879e-05,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK15_r2",
+  "ds": "CRK15",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 5.608968425448169e-06,
+   "OOD": 7.394458978669027e-05,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 1.6343840774117817e-05,
+   "OOD": 0.042072712947821535,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK15_r3",
+  "ds": "CRK15",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 1.1191026977648624e-06,
+   "OOD": 0.002823181164594983,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 981,
+   "ID": 1.1191026977648624e-06,
+   "OOD": 0.002823181164594983,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK17_r1",
+  "ds": "CRK17",
+  "budget_s": 3600,
+  "shared": {
+   "n": 309,
+   "ID": 2.930122433375375e-05,
+   "OOD": 0.30620237694212693,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 974,
+   "ID": 3.399743237301823e-06,
+   "OOD": 0.22622469597555586,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK17_r2",
+  "ds": "CRK17",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 8.97537949509966e-06,
+   "OOD": 0.1425779283348886,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 974,
+   "ID": 3.9441292932784076e-09,
+   "OOD": 2.2033192189754145e-06,
+   "matched": false
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK17_r3",
+  "ds": "CRK17",
+  "budget_s": 3600,
+  "shared": {
+   "n": 309,
+   "ID": 8.256976887613798e-06,
+   "OOD": 0.00016706478237090306,
+   "matched": false
+  },
+  "dedicated": {
+   "n": 974,
+   "ID": 8.256976887613798e-06,
+   "OOD": 0.00016706478237090306,
+   "matched": false
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK19_r1",
+  "ds": "CRK19",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 8.579510590029964e-05,
+   "OOD": 4.975237434570628,
+   "matched": false
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 8.579510590029964e-05,
+   "OOD": 4.975237434570628,
+   "matched": false
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK19_r2",
+  "ds": "CRK19",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 0.00011020911715489149,
+   "OOD": 0.4918298137988244,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 0.00011020911715489149,
+   "OOD": 0.4918298137988244,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK19_r3",
+  "ds": "CRK19",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 5.9108634195803834e-05,
+   "OOD": 1.254455007384956,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 5.9108634195803834e-05,
+   "OOD": 1.254455007384956,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK22_r1",
+  "ds": "CRK22",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 8.233742720271324e-07,
+   "OOD": 0.018492144320165247,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 8.233742720271324e-07,
+   "OOD": 0.018492144320165247,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK22_r2",
+  "ds": "CRK22",
+  "budget_s": 3600,
+  "shared": {
+   "n": 317,
+   "ID": 5.33921675594246e-06,
+   "OOD": 11.63299043437978,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 2.311696380301213e-06,
+   "OOD": 21.350259384999756,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK22_r3",
+  "ds": "CRK22",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 1.3378109486456714e-06,
+   "OOD": 9.23144579867177,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 0.003927714723279935,
+   "OOD": 7696.463979750677,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK28_r1",
+  "ds": "CRK28",
+  "budget_s": 3600,
+  "shared": {
+   "n": 309,
+   "ID": 0.00027011575874846263,
+   "OOD": 4.989978531532389,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 0.00027011575874846263,
+   "OOD": 4.989978531532389,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK28_r2",
+  "ds": "CRK28",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 0.0002664773433591476,
+   "OOD": 0.09921700348674141,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 0.00020844031664923285,
+   "OOD": 4.702905895469993,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK28_r3",
+  "ds": "CRK28",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 0.0009227155600614416,
+   "OOD": 9.678183576407044,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 0.00037816195510350823,
+   "OOD": 3.902227497559158,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK30_r1",
+  "ds": "CRK30",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 9.991605017899233e-05,
+   "OOD": 1.5860652465855893,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 993,
+   "ID": 4.4822002578073834e-05,
+   "OOD": 2.1707224602820463,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK30_r2",
+  "ds": "CRK30",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 0.00021721670313329855,
+   "OOD": 12.43561105966326,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 993,
+   "ID": 0.00010877292263357606,
+   "OOD": 1.269470244051152,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK30_r3",
+  "ds": "CRK30",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 5.1039454182259155e-05,
+   "OOD": 0.13257226324715074,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 993,
+   "ID": 5.1039454182259155e-05,
+   "OOD": 0.13257226324715074,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK3_r1",
+  "ds": "CRK3",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 0.00013011653329342618,
+   "OOD": 4.705805273362946,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 0.00011112967736229708,
+   "OOD": 0.32032187905732623,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK3_r2",
+  "ds": "CRK3",
+  "budget_s": 3600,
+  "shared": {
+   "n": 309,
+   "ID": 0.00010991288699559503,
+   "OOD": 2.0884728179254592,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 0.00011216465905619877,
+   "OOD": 1.013353080223355,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK3_r3",
+  "ds": "CRK3",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 0.00014416918055867146,
+   "OOD": 25.428290861694236,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 9.779154244443365e-05,
+   "OOD": 0.9520241516501278,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK4_r1",
+  "ds": "CRK4",
+  "budget_s": 3600,
+  "shared": {
+   "n": 309,
+   "ID": 5.976287883719476e-05,
+   "OOD": 3.836299174167439,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 3.504822391895831e-05,
+   "OOD": 0.21913652697126068,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK4_r2",
+  "ds": "CRK4",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 0.00012472448561569029,
+   "OOD": 9.788469379389719,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 1.0000565032054132e-05,
+   "OOD": 0.16272561324382642,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK4_r3",
+  "ds": "CRK4",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 2.757174425471277e-05,
+   "OOD": 2.394848596212666,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 1001,
+   "ID": 1.8440882361894453e-05,
+   "OOD": 0.029705633962775122,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK7_r1",
+  "ds": "CRK7",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 0.0002723735002342419,
+   "OOD": 4.314830092369217,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 9.304012650377287e-05,
+   "OOD": 0.01840326432164282,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK7_r2",
+  "ds": "CRK7",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 0.00018188317775714408,
+   "OOD": 0.13115233403259738,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 5.864073796952567e-05,
+   "OOD": 0.0014022318240365724,
+   "matched": true
+  }
+ },
+ {
+  "run": "llmsr_logs/rikyu/llama8b_CRK7_r3",
+  "ds": "CRK7",
+  "budget_s": 3600,
+  "shared": {
+   "n": 313,
+   "ID": 0.0002133091261967087,
+   "OOD": 0.10134986010636045,
+   "matched": true
+  },
+  "dedicated": {
+   "n": 997,
+   "ID": 0.0001545585245250533,
+   "OOD": 0.46403282133508506,
+   "matched": true
+  }
+ }
+]

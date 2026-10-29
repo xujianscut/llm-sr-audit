@@ -144,9 +144,8 @@ def table_crk():
 
 
 # ---- Table: DoLQ --------------------------------------------------------------------------
-# Term test (structure recovery after dropping negligible terms), judged by reading every
-# PySR expression; see appendix listing. Keyed by seed -> set of problems recovered.
-PYSR_TERM_PASS = {0: {1, 2, 7, 8}, 1: {1, 2, 7, 8}, 2: {1, 2, 7, 8}}
+# Term test: automatic rule in dolq_terms.py (prune constants whose removal changes the
+# right-hand side by < 1e-3 relative RMS on the training points, then compare term skeletons).
 
 
 def table_dolq():
@@ -172,14 +171,27 @@ def table_dolq():
     rows = [f"{k} (reported) & {v[0]}/8 & {v[1]}/8 & n/a \\\\" for k, v in REPORTED_DOLQ.items()]
     rows.append("\\midrule")
     rng = lambda a, b: f"{a}/8" if a == b else f"{a}--{b}/8"
-    tp = [len(v) for v in PYSR_TERM_PASS.values()]
+    # automatic term test (dolq_terms.py): main threshold 1e-3, sensitivity 1e-2
+    TT = json.load(open(f"{HERE}/results_llmsr_rerun/dolq_terms.json"))
+    assert sorted(TT) == [str(p) for p in range(1, 9)]
+    term = lambda k, dl: [p for p in range(1, 9) if k in TT[str(p)] and TT[str(p)][k][dl]["recovered"]]
+    tp = [len(term(f"pysr_s{sd}", "0.001")) for sd in (0, 1, 2)]
+    tp_loose = [len(term(f"pysr_s{sd}", "0.01")) for sd in (0, 1, 2)]
+    # recovered and integrable from both initial conditions (unpruned model)
+    stable = [len([p for p in term(f"pysr_s{sd}", "0.001") if np.isfinite(H[str(p)][f"pysr_s{sd}"]["train_ic"])
+                   and np.isfinite(H[str(p)][f"pysr_s{sd}"]["heldout_ic"])]) for sd in (0, 1, 2)]
+    p8_loose = sum(8 in term(f"pysr_s{sd}", "0.01") for sd in (0, 1, 2))
+    ts, tc = len(term("sindy", "0.001")), len(term("closedbook", "0.001"))
+    assert ts == len(term("sindy", "0.01")) and tc == len(term("closedbook", "0.01"))
     rows.append(f"PySR, each seed (ours) & {rng(min(nm.values()), max(nm.values()))} & {rng(min(tp), max(tp))} & {rng(min(hp), max(hp))} \\\\")
-    rows.append(f"Dense SINDy (ours) & {n_sindy}/8 & 0/8 & {hs}/8 \\\\")
-    rows.append(f"Closed-book LLM, no data (ours) & {cb_pass}/8 & 0/8 & {hc}/8 \\\\")
+    rows.append(f"Dense SINDy (ours) & {n_sindy}/8 & {ts}/8 & {hs}/8 \\\\")
+    rows.append(f"Closed-book LLM, no data (ours) & {cb_pass}/8 & {tc}/8 & {hc}/8 \\\\")
     s = ("\\begin{tabular}{lccc}\n\\toprule\nMethod & NMSE test & Term test & Held-out IC \\\\\n\\midrule\n" + "\n".join(rows) +
          "\n\\bottomrule\n\\end{tabular}\n")
     write("dolq.tex", s)
-    return dict(pysr_nmse=nm, sindy=n_sindy, closedbook=cb_pass, heldout=heldout)
+    return dict(pysr_nmse=nm, sindy=n_sindy, closedbook=cb_pass, heldout=heldout, term=dict(
+        pysr=tp, pysr_loose=tp_loose, pysr_stable=stable, p8_loose=p8_loose, sindy=ts, closedbook=tc,
+        pysr_sets=sorted({tuple(term(f"pysr_s{sd}", "0.001")) for sd in (0, 1, 2)})))
 
 
 # ---- order-statistic analysis of best-of-k reporting (Section on theory) ------------------
@@ -268,6 +280,101 @@ def bootstrap_partition(B=20000, seed=0):
 
 
 # ---- macros for every number quoted in the running text ---------------------------------
+# ---- matched compute (Section "compute") ------------------------------------------------------
+# Three clocks for LLM-SR: its wall-clock time on one GPU shared by many concurrent runs (the runs
+# in the paper), its wall-clock time on a dedicated GPU (timing runs, llmsr_timing.py), and GPU-hours
+# amortised over the concurrent runs. Accuracy at a budget comes from llmsr_at_budget.py.
+KEYS = [("OscOne", "oscillator1"), ("OscTwo", "oscillator2"), ("Ecoli", "bactgrow"), ("Stress", "stressstrain")]
+
+
+def pysr_hour(ds):
+    pat = f"{HERE}/results_crk/{ds}_s*_t3600.json" if ds.startswith("CRK") else f"{HERE}/results_llmsr/{ds}_s*_nobatch_t3600.json"
+    return load_glob(pat, 3)
+
+
+def boot_log_ratio(p, l, rng_, B=20000):
+    """log10(median PySR / median LLM-SR) (> 0 favours LLM-SR), resampling runs within each method."""
+    p, l = np.log10(clip_pos(p)), np.log10(clip_pos(l))
+    d = np.median(rng_.choice(p, (B, len(p))), 1) - np.median(rng_.choice(l, (B, len(l))), 1)
+    return float(np.median(p) - np.median(l)), d
+
+
+def sgn(v):
+    return f"{v:+.2f}" if abs(v) < 0.05 else f"{v:+.1f}"
+
+
+def compute_matched():
+    T = json.load(open(f"{HERE}/results_llmsr_rerun/dedicated_timing.json"))
+    AT = json.load(open(f"{HERE}/results_llmsr_rerun/llmsr_at_budget.json"))
+    conc = lambda run: 12 if int(run.rsplit("_r", 1)[1]) <= 3 else 20       # concurrent runs sharing the GPU
+    tim = lambda ds, ded: [t for t in T if t["ds"] == ds and t["dedicated"] == ded]
+    end_h = lambda ts: float(np.median([t["wall"][-1]["wall_s"] for t in ts])) / 3600
+    rng_ = np.random.default_rng(0); m = {}; rows = []; acc = []; slow = []; gen = []
+    for t in T:
+        if t["dedicated"]:
+            gen.append(t["sample_s"] / (t["sample_s"] + t["evaluate_s"]))
+    for key, ds in KEYS:
+        sh, de = tim(ds, False), tim(ds, True)
+        assert len(sh) == 8 and len(de) == 2, (ds, len(sh), len(de))
+        at = [a for a in AT if a["ds"] == ds]; assert len(at) == 8, (ds, len(at))
+        wsh, wde = end_h(sh), end_h(de); slow.append(wsh / wde)
+        gpu = float(np.median([t["wall"][-1]["wall_s"] / conc(t["run"]) for t in sh])) / 3600
+        nsh = int(np.median([a["shared"]["n"] for a in at])); nde = at[0]["dedicated"]["n"]
+        lsh, lde = [a["shared"]["OOD"] for a in at], [a["dedicated"]["OOD"] for a in at]
+        lend = [r["OOD"] for r in load_glob(f"{HERE}/results_llmsr_rerun/{ds}_r*.json", 8)]
+        ph = pysr_hour(ds); p = [r["OOD"] for r in ph]
+        d, bd = boot_log_ratio(p, lde, rng_); lo, hi = np.percentile(bd, [2.5, 97.5])
+        rows.append(f"{DSNAME[ds]} & {wsh:.1f} & {wde:.1f} & {gpu:.2f} & {nsh} & {nde} \\\\")
+        acc.append(f"{DSNAME[ds]} & {fmt(finite_median(lsh))} & {fmt(finite_median(lde))} & {fmt(finite_median(lend))} & "
+                   f"{fmt(finite_median(p))} ({len(p)}) & ${sgn(d)}$ $[{sgn(lo)}, {sgn(hi)}]$ \\\\")
+        m.update({f"{key}LlmsrWallHours": f"{wsh:.1f}", f"{key}LlmsrDedWallHours": f"{wde:.1f}", f"{key}LlmsrGpuHours": f"{gpu:.2f}",
+                  f"{key}LlmsrOneHourSamples": str(nsh), f"{key}LlmsrDedHourSamples": str(nde),
+                  f"{key}LlmsrOneHourOOD": fmt(finite_median(lsh)), f"{key}LlmsrDedHourOOD": fmt(finite_median(lde)),
+                  f"{key}LlmsrOneHourExact": str(sum(o < 1e-6 for o in lsh)), f"{key}LlmsrDedHourExact": str(sum(o < 1e-6 for o in lde)),
+                  f"{key}PysrHourN": str(len(p)), f"{key}PysrHourExact": str(sum(o < 1e-6 for o in p)),
+                  f"{key}PysrHourOOD": fmt(finite_median(p)), f"{key}PysrHourID": fmt(finite_median([r["ID"] for r in ph])),
+                  f"{key}HourBoot": sgn(d), f"{key}HourBootLo": sgn(lo), f"{key}HourBootHi": sgn(hi)})
+    # CRK: per task, LLM-SR (6 runs) at one hour on each clock and at the end, against one-hour PySR (3 seeds)
+    csh = [t for t in T if t["ds"].startswith("CRK") and not t["dedicated"]]
+    cde = [t for t in T if t["ds"].startswith("CRK") and t["dedicated"]]
+    assert sorted({t["ds"] for t in cde}) == sorted(CRK), sorted({t["ds"] for t in cde})
+    slow.append(end_h(csh) / end_h(cde))
+    win = {"shared": [], "dedicated": [], "end": []}; boots = {k: [] for k in win}; decisive = [0, 0]
+    for n in CRK:
+        at = [a for a in AT if a["ds"] == n]; assert len(at) == 6, (n, len(at))
+        p = [r["OOD"] for r in pysr_hour(n)]
+        lend = [r["OOD"] for r in load_glob(f"{HERE}/results_crk_llmsr/{n}_r*.json", 6)]
+        for k, l in (("shared", [a["shared"]["OOD"] for a in at]), ("dedicated", [a["dedicated"]["OOD"] for a in at]), ("end", lend)):
+            d, bd = boot_log_ratio(p, l, rng_)
+            win[k].append(d > 0); boots[k].append(bd > 0)
+            if k == "dedicated":
+                lo, hi = np.percentile(bd, [2.5, 97.5]); decisive[0] += hi < 0; decisive[1] += lo > 0
+    for k, tag in (("shared", "AtOneHour"), ("dedicated", "AtDedHour"), ("end", "AtEnd")):
+        cnt = np.sum(boots[k], 0)
+        m[f"CrkLlmsrBeatsPysrHour{tag}"] = str(sum(win[k]))
+        m[f"CrkLlmsrBeatsPysrHour{tag}Lo"], m[f"CrkLlmsrBeatsPysrHour{tag}Hi"] = (str(int(v)) for v in np.percentile(cnt, [2.5, 97.5]))
+    m["CrkHourPysrDecisive"], m["CrkHourLlmsrDecisive"] = str(decisive[0]), str(decisive[1])
+    m["CrkHourTasks"] = str(len(CRK)); m["CrkPysrHourN"] = str(min(len(pysr_hour(n)) for n in CRK))
+    m["CrkLlmsrWallHours"], m["CrkLlmsrDedWallHours"] = f"{end_h(csh):.1f}", f"{end_h(cde):.1f}"
+    m["CrkDedHourSamples"] = str(int(np.median([a["dedicated"]["n"] for a in AT if a["ds"].startswith("CRK")])))
+    m["CrkDecaBeatsPysrHour"] = str(sum(REPORTED_CRK[n][1] < finite_median([r["OOD"] for r in pysr_hour(n)]) for n in CRK))
+    m["SharedSlowdownLo"], m["SharedSlowdownHi"] = f"{min(slow):.1f}", f"{max(slow):.1f}"
+    m["GenShareLo"], m["GenShareHi"] = f"{100 * min(gen):.0f}", f"{100 * max(gen):.0f}"
+    rows.append(f"CRK (10 tasks) & {end_h(csh):.1f} & {end_h(cde):.1f} & -- & "
+                f"{int(np.median([a['shared']['n'] for a in AT if a['ds'].startswith('CRK')]))} & {m['CrkDedHourSamples']} \\\\")
+    write("compute.tex", "\\begin{tabular}{lccccc}\n\\toprule\n"
+          " & \\multicolumn{2}{c}{Run time (h)} & GPU-h per run & \\multicolumn{2}{c}{Samples in 1\\,h} \\\\\n"
+          "\\cmidrule(lr){2-3}\\cmidrule(lr){5-6}\n"
+          "Dataset & shared & dedicated & (amortised) & shared & dedicated \\\\\n\\midrule\n"
+          + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n\n\\medskip\n\n"
+          "\\begin{tabular}{lccccc}\n\\toprule\n"
+          " & \\multicolumn{3}{c}{LLM-SR} & PySR & \\\\\n"
+          "\\cmidrule(lr){2-4}\n"
+          "Dataset & 1\\,h shared & 1\\,h dedicated & end & 1\\,h (seeds) & $\\Delta$ [95\\%] \\\\\n\\midrule\n"
+          + "\n".join(acc) + "\n\\bottomrule\n\\end{tabular}\n")
+    return m
+
+
 def ratio(a, b):
     r = a / b
     return f"{r:,.0f}" if r >= 10 else f"{r:.1f}"
@@ -314,6 +421,14 @@ def write_macros():
            for ref in (REPORTED_LLMSR_L8, REPORTED_DECA_L8)]
     m["ImpliedOrdersLo"], m["ImpliedOrdersHi"] = f"{min(imp):.1f}", f"{max(imp):.1f}"
     ho = S["dolq"]["heldout"]
+    tt = S["dolq"]["term"]
+    assert len(tt["pysr_sets"]) == 1, tt["pysr_sets"]          # the same systems for every seed
+    assert tt["pysr_stable"] == tt["pysr"], tt                   # text: every recovered structure integrates stably
+    assert min(tt["pysr"]) == max(tt["pysr"]) and min(tt["pysr_stable"]) == max(tt["pysr_stable"])
+    m["DolqTermPysr"] = str(tt["pysr"][0]); m["DolqTermPysrStable"] = str(tt["pysr_stable"][0])
+    m["DolqTermPysrSystems"] = ", ".join(f"P{p}" for p in tt["pysr_sets"][0])
+    m["DolqTermPysrLooseMax"] = str(max(tt["pysr_loose"])); m["DolqPEightLooseSeeds"] = str(tt["p8_loose"])
+    m["DolqTermSindy"] = str(tt["sindy"]); m["DolqTermClosedbook"] = str(tt["closedbook"])
     m["DolqHeldoutPysr"] = str(min(ho["pysr"])); m["DolqHeldoutSindy"] = str(ho["sindy"]); m["DolqHeldoutClosedbook"] = str(ho["closedbook"])
     th = theory_numbers(); m.update(th)
     bs = bootstrap_partition()
@@ -331,66 +446,11 @@ def write_macros():
         m[f"{key}LlmsrMedFirstThree"] = fmt(finite_median([r["OOD"] for r in rr[:3]]))
         m[f"{key}LlmsrMedAll"] = fmt(finite_median([r["OOD"] for r in rr]))
         m[f"{key}FirstThreeVsAllDecades"] = f"{abs(np.log10(finite_median([r['OOD'] for r in rr[:3]]) / finite_median([r['OOD'] for r in rr]))):.0f}"
-    # compute-matched comparison (Section "compute"): PySR with a one-hour wall-clock budget versus
-    # LLM-SR anytime curves read at one hour and at the end of each run
-    A = json.load(open(f"{HERE}/results_llmsr_rerun/anytime_tlt.json"))
-    conc = lambda run: 12 if int(run.rsplit("_r", 1)[1]) <= 3 else 20       # concurrent runs sharing the GPU
-    for key, ds in [("OscOne", "oscillator1"), ("OscTwo", "oscillator2"), ("Ecoli", "bactgrow"), ("Stress", "stressstrain")]:
-        runs = [r for r in A if r["ds"] == ds]
-        assert len(runs) == 8, (ds, len(runs))
-        m[f"{key}LlmsrWallHours"] = f"{np.median([r['curve'][-1]['wall_s'] for r in runs]) / 3600:.1f}"
-        m[f"{key}LlmsrGpuHours"] = f"{np.median([r['curve'][-1]['wall_s'] / conc(r['run']) for r in runs]) / 3600:.2f}"
-        at1h = [max((c for c in r["curve"] if c["wall_s"] <= 3600), key=lambda c: c["wall_s"]) for r in runs]
-        m[f"{key}LlmsrOneHourOOD"] = fmt(finite_median([c["OOD"] for c in at1h]))
-        m[f"{key}LlmsrOneHourExact"] = str(sum(c["OOD"] < 1e-6 for c in at1h))
-        m[f"{key}LlmsrOneHourSamples"] = str(int(np.median([c["n"] for c in at1h])))
-        hr = [json.load(open(f)) for f in glob.glob(f"{HERE}/results_llmsr/{ds}_s[0-9]_nobatch_t3600.json")]
-        if hr:
-            m[f"{key}PysrHourN"] = str(len(hr)); m[f"{key}PysrHourExact"] = str(sum(r["OOD"] < 1e-6 for r in hr))
-            m[f"{key}PysrHourOOD"] = fmt(finite_median([r["OOD"] for r in hr]))
-            m[f"{key}PysrHourID"] = fmt(finite_median([r["ID"] for r in hr]))
-    # matched-time margins on the oscillators, E. coli crossing time, CRK at one hour
-    ratios = []
-    for key, ds in [("OscOne", "oscillator1"), ("OscTwo", "oscillator2")]:
-        if f"{key}PysrHourOOD" in m:
-            runs = [r for r in A if r["ds"] == ds]
-            at1h = [max((c for c in r["curve"] if c["wall_s"] <= 3600), key=lambda c: c["wall_s"])["OOD"] for r in runs]
-            hr = [json.load(open(f))["OOD"] for f in glob.glob(f"{HERE}/results_llmsr/{ds}_s[0-9]_nobatch_t3600.json")]
-            ratios.append(finite_median(at1h) / finite_median(hr))
-    if ratios:
-        m["OneHourMinRatio"] = f"{min(ratios):.1f}"
-    hr = [json.load(open(f))["OOD"] for f in glob.glob(f"{HERE}/results_llmsr/bactgrow_s[0-9]_nobatch_t3600.json")]
-    if len(hr) == 3:
-        ph = finite_median(hr); runs = [r for r in A if r["ds"] == "bactgrow"]
-        ns = sorted({c["n"] for r in runs for c in r["curve"]})
-        cross = None
-        for n in ns:
-            cs = [c for r in runs for c in r["curve"] if c["n"] == n]
-            if len(cs) == len(runs) and finite_median([c["OOD"] for c in cs]) < ph:
-                cross = np.median([c["wall_s"] for c in cs]); break
-        m["EcoliPysrHourOOD"] = fmt(ph)
-        m["EcoliCrossHours"] = "never" if cross is None else f"{cross / 3600:.1f}"
-    AC = json.load(open(f"{HERE}/results_llmsr_rerun/anytime_rikyu.json")) + [r for r in A if r["ds"].startswith("CRK")]
-    nh = n1 = ne = 0
-    for n in CRK:
-        hf = glob.glob(f"{HERE}/results_crk/{n}_s[0-9]_t3600.json")
-        if not hf: continue
-        nh += 1; ph = finite_median([json.load(open(f))["OOD"] for f in hf])
-        runs = [r for r in AC if r["ds"] == n]
-        at1h = finite_median([max((c for c in r["curve"] if c["wall_s"] <= 3600), key=lambda c: c["wall_s"])["OOD"] for r in runs])
-        end = finite_median([r["curve"][-1]["OOD"] for r in runs])
-        n1 += at1h < ph; ne += end < ph
-    nd = sum(REPORTED_CRK[n][1] < finite_median([json.load(open(f))["OOD"] for f in glob.glob(f"{HERE}/results_crk/{n}_s[0-9]_t3600.json")])
-             for n in CRK if glob.glob(f"{HERE}/results_crk/{n}_s[0-9]_t3600.json"))
-    m["CrkDecaBeatsPysrHour"] = str(nd)
+    m.update(compute_matched())
     m["EcoliPysrOneKOOD"] = fmt(finite_median([r["OOD"] for r in pysr_runs("bactgrow", "default")]))
     ek = [r["OOD"] for r in pysr_runs("bactgrow", "default")]
-    eh = [json.load(open(f))["OOD"] for f in glob.glob(f"{HERE}/results_llmsr/bactgrow_s[0-9]_nobatch_t3600.json")]
     m["EcoliPysrHeavyOneK"], m["EcoliPysrNOneK"] = str(sum(not (o < 100) for o in ek)), str(len(ek))
-    m["EcoliPysrHeavyHour"] = str(sum(not (o < 100) for o in eh))
-    if nh:
-        m["CrkHourTasks"], m["CrkLlmsrBeatsPysrHourAtOneHour"], m["CrkLlmsrBeatsPysrHourAtEnd"] = str(nh), str(n1), str(ne)
-        m["CrkLlmsrWallHours"] = f"{np.median([r['curve'][-1]['wall_s'] for r in AC if r['ds'].startswith('CRK')]) / 3600:.1f}"
+    m["EcoliPysrHeavyHour"] = str(sum(not (o < 100) for o in [r["OOD"] for r in pysr_hour("bactgrow")]))
     nc = [len(load_glob(f"{HERE}/results_crk_llmsr/{n}_r*.json", 6)) for n in CRK]
     m["NCrkLlmsrRuns"] = str(min(nc))
     rs = json.load(open(f"{HERE}/results_llmsr_rerun/refit_sensitivity.json"))
